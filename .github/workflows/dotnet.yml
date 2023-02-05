@@ -11,7 +11,7 @@ on:
 
 defaults:
   run:
-    working-directory: ./src
+    working-directory: src
 
 jobs:
   build:
@@ -25,8 +25,8 @@ jobs:
       with:
         dotnet-version: 7.0.x
     - name: Restore dependencies
-      run: dotnet restore src/EzDomain.NET.sln
+      run: dotnet restore EzDomain.NET.sln
     - name: Build
-      run: dotnet build src/EzDomain.NET.sln --no-restore
+      run: dotnet build EzDomain.NET.sln --no-restore
     - name: Test
-      run: dotnet test src/EzDomain.NET.sln --no-build --verbosity normal
+      run: dotnet test EzDomain.NET.sln --no-build --verbosity normal
