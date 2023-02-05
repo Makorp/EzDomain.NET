@@ -8,13 +8,12 @@ on:
     branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
-
-defaults:
-  run:
-    working-directory: src
-
 jobs:
   build:
+
+    defaults:
+      run:
+        working-directory: ./src
 
     runs-on: ubuntu-latest
 
@@ -25,8 +24,8 @@ jobs:
       with:
         dotnet-version: 7.0.x
     - name: Restore dependencies
-      run: dotnet restore EzDomain.NET.sln
+      run: dotnet restore 
     - name: Build
-      run: dotnet build EzDomain.NET.sln --no-restore
+      run: dotnet build --no-restore
     - name: Test
-      run: dotnet test EzDomain.NET.sln --no-build --verbosity normal
+      run: dotnet test --no-build --verbosity normal
