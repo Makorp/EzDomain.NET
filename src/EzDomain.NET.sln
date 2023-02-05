@@ -4,6 +4,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "EventSourcing", "EventSourc
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EzDomain.EventSourcing", "EventSourcing\EzDomain.EventSourcing\EzDomain.EventSourcing.csproj", "{0B8B3286-2619-4A6A-853E-DE3B22CCEA6C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EzDomain.EventSourcing.Tests", "EventSourcing\EzDomain.EventSourcing.Tests\EzDomain.EventSourcing.Tests.csproj", "{A412B129-AA43-4302-B3AC-1BA4686FBADF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -11,11 +13,16 @@ Global
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{0B8B3286-2619-4A6A-853E-DE3B22CCEA6C} = {8318F54C-CB81-4F0A-B3D1-B753F3CFA122}
+		{A412B129-AA43-4302-B3AC-1BA4686FBADF} = {8318F54C-CB81-4F0A-B3D1-B753F3CFA122}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{0B8B3286-2619-4A6A-853E-DE3B22CCEA6C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{0B8B3286-2619-4A6A-853E-DE3B22CCEA6C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0B8B3286-2619-4A6A-853E-DE3B22CCEA6C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0B8B3286-2619-4A6A-853E-DE3B22CCEA6C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A412B129-AA43-4302-B3AC-1BA4686FBADF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A412B129-AA43-4302-B3AC-1BA4686FBADF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A412B129-AA43-4302-B3AC-1BA4686FBADF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A412B129-AA43-4302-B3AC-1BA4686FBADF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
