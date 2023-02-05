@@ -31,9 +31,10 @@ jobs:
     - name: Test
       run: dotnet test --no-build --verbosity normal --configuration Release
     - name: Upload a Build Artifact
-    
       uses: actions/upload-artifact@v3.1.2
       with:
         name: Publish artifacts
-        path: ./src/EventSourcing/EzDomain.EventSourcing/bin/Release/net7.0/EzDomain.EventSourcing.dll
+        path: |
+          ./src/EventSourcing/EzDomain.EventSourcing/bin/Release/net7.0/EzDomain.EventSourcing.dll
+          ./src/EventSourcing/EzDomain.EventSourcing.Tets/bin/Release/net7.0/EzDomain.EventSourcing.Tests.dll
 
