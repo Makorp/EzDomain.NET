@@ -1,0 +1,26 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <LangVersion>11</LangVersion>
+        <TargetFramework>net7.0</TargetFramework>
+        <Version>7.0.0</Version>
+        <Authors>Maciej Korzeniewski</Authors>
+        <Description>
+            This library helps in implementation of event sourcing in DDD approach.
+        </Description>
+        <Title>EzDomain.NET - Event Sourcing</Title>
+        <Copyright>Maciej Korzeniewski</Copyright>
+        <PackageProjectUrl>https://github.com/Makorp/EzDomain.NET</PackageProjectUrl>
+        <PackageLicenseUrl>https://github.com/Makorp/EzDomain.NET</PackageLicenseUrl>
+        <RepositoryUrl>https://github.com/Makorp/EzDomain.NET</RepositoryUrl>
+        <AssemblyVersion>7.0.0</AssemblyVersion>
+        <FileVersion>7.0.0.0</FileVersion>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <InternalsVisibleTo Include="EzDomain.EventSourcing.Tests" />
+        <InternalsVisibleTo Include="EzDomain.EventSourcing.EventStores.Azure.TableStorage.Tests" />
+        <InternalsVisibleTo Include="DynamicProxyGenAssembly2" />
+    </ItemGroup>
+
+</Project>
