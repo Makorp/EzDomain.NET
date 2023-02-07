@@ -12,5 +12,5 @@ public class AggregateRootFactory<TAggregateRoot, TAggregateRootId>
     /// Restores aggregate root state from an event stream containing domain events.
     /// </summary>
     /// <returns>Aggregate root</returns>
-    public virtual TAggregateRoot Create() => new TAggregateRoot();
+    public virtual TAggregateRoot Create() => new();
 }

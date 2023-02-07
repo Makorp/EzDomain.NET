@@ -2,7 +2,6 @@ using EzDomain.EventSourcing.Domain.Model;
 
 namespace EzDomain.EventSourcing.Serialization;
 
-// TODO: Consider changing or adding async methods as well.
 public interface IEventDataSerializer<TDomainEventDataSerializationType>
 {
     /// <summary>
