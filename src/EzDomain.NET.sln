@@ -4,7 +4,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "EventSourcing", "EventSourc
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EzDomain.EventSourcing", "EventSourcing\EzDomain.EventSourcing\EzDomain.EventSourcing.csproj", "{0B8B3286-2619-4A6A-853E-DE3B22CCEA6C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EzDomain.EventSourcing.Tests", "EventSourcing\EzDomain.EventSourcing.Tests\EzDomain.EventSourcing.Tests.csproj", "{A412B129-AA43-4302-B3AC-1BA4686FBADF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EzDomain.EventSourcing.Tests.UnitTests", "EventSourcing\EzDomain.EventSourcing.Tests.UnitTests\EzDomain.EventSourcing.Tests.UnitTests.csproj", "{A412B129-AA43-4302-B3AC-1BA4686FBADF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
