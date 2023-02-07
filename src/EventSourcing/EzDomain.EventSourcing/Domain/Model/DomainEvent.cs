@@ -13,10 +13,7 @@ public abstract record DomainEvent
     /// <summary>
     /// Use this constructor only for deserialization form event store.
     /// </summary>
-    protected DomainEvent()
-    {
-        _version = Constants.InitialVersion;
-    }
+    protected DomainEvent() => _version = Constants.InitialVersion;
 
     /// <summary>
     /// Use this constructor only for creation of new event.

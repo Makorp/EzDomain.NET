@@ -10,12 +10,12 @@ public sealed class Repository<TAggregateRoot, TAggregateRootId>
     where TAggregateRoot : class, IAggregateRoot<TAggregateRootId>
     where TAggregateRootId : class, IAggregateRootId
 {
-    private readonly IAggregateRootFactory<TAggregateRoot, TAggregateRootId> _factory;
+    private readonly IAggregateRootFactory<TAggregateRoot, TAggregateRootId> _aggregateRootFactory;
     private readonly IEventStore _eventStore;
 
-    public Repository(IAggregateRootFactory<TAggregateRoot, TAggregateRootId> factory, IEventStore eventStore)
+    public Repository(IAggregateRootFactory<TAggregateRoot, TAggregateRootId> aggregateRootFactory, IEventStore eventStore)
     {
-        _factory = factory;
+        _aggregateRootFactory = aggregateRootFactory;
         _eventStore = eventStore;
     }
 
@@ -33,7 +33,7 @@ public sealed class Repository<TAggregateRoot, TAggregateRootId>
             return default;
         }
 
-        var aggregateRoot = _factory.Create();
+        var aggregateRoot = _aggregateRootFactory.Create();
         var aggregateRootBehavior = CastToBehavior(aggregateRoot);
 
         aggregateRootBehavior.RestoreFromStream(eventStream);
