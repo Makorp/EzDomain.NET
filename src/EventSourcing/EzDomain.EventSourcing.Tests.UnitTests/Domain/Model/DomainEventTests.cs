@@ -4,7 +4,7 @@ using EzDomain.EventSourcing.Tests.UnitTests.TestDoubles;
 namespace EzDomain.EventSourcing.Tests.UnitTests.Domain.Model;
 
 [TestFixture]
-public sealed class EventTests
+public sealed class DomainEventTests
 {
     [Test]
     public void CallingDefaultDomainEventConstructor_InitializesDefaultDomainEventVersion()
