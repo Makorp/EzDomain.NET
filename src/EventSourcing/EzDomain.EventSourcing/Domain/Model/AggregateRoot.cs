@@ -38,7 +38,7 @@ public abstract class AggregateRoot<TId>
     public TId Id
     {
         get => _id;
-        private set
+        protected set
         {
             if (_id is not null)
             {

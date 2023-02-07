@@ -18,8 +18,8 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <InternalsVisibleTo Include="EzDomain.EventSourcing.Tests" />
-        <InternalsVisibleTo Include="EzDomain.EventSourcing.EventStores.Azure.TableStorage.Tests" />
+        <InternalsVisibleTo Include="EzDomain.EventSourcing.Tests.UnitTests" />
+        <InternalsVisibleTo Include="EzDomain.EventSourcing.EventStores.Azure.TableStorage.Tests.UnitTests" />
         <InternalsVisibleTo Include="DynamicProxyGenAssembly2" />
     </ItemGroup>
 

@@ -11,7 +11,7 @@ public abstract record DomainEvent
     private long _version;
 
     /// <summary>
-    /// Use this constructor only for deserialization form an event store.
+    /// Use this constructor only for deserialization form event store.
     /// </summary>
     protected DomainEvent()
     {
@@ -19,7 +19,7 @@ public abstract record DomainEvent
     }
 
     /// <summary>
-    /// Use this constructor only for creation of a new event.
+    /// Use this constructor only for creation of new event.
     /// </summary>
     /// <param name="aggregateRootId">Serialized to string aggregate root identifier.</param>
     /// <exception cref="AggregateRootIdException">Thrown if serialized to string aggregate root identifier is null, empty or whitespace.</exception>
