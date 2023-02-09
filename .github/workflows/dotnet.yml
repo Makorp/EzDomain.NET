@@ -29,15 +29,14 @@ jobs:
     - name: Build
       run: |
         dotnet build EventSourcing/EzDomain.EventSourcing/EzDomain.EventSourcing.csproj --no-restore --configuration Release
-        dotnet build EventSourcing/EzDomain.EventSourcing/EzDomain.EventSourcing.Tests.UnitTests.csproj --no-restore --configuration Release
+        dotnet build EventSourcing/EzDomain.EventSourcing.Tests.UnitTests/EzDomain.EventSourcing.Tests.UnitTests.csproj --no-restore --configuration Release
     - name: Test
       run: |
-        dotnet test EventSourcing/EzDomain.EventSourcing/EzDomain.EventSourcing.Tests.UnitTests.csproj --no-build --verbosity normal --configuration Release
+        dotnet test EventSourcing/EzDomain.EventSourcing.Tests.UnitTests/EzDomain.EventSourcing.Tests.UnitTests.csproj --no-build --verbosity normal --configuration Release
     - name: Upload a Build Artifact
       uses: actions/upload-artifact@v3.1.2
       with:
         name: Publish artifacts
         path: |
           ./src/EventSourcing/EzDomain.EventSourcing/bin/Release/net7.0/EzDomain.EventSourcing.dll
-          ./src/EventSourcing/EzDomain.EventSourcing.Tets/bin/Release/net7.0/EzDomain.EventSourcing.Tests.dll
-
+          
