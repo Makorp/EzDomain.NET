@@ -10,8 +10,7 @@ public interface IEventDataSerializer<TDomainEventDataSerializationType>
     /// <param name="domainEvent">Domain event.</param>
     /// <typeparam name="TDomainEvent">Domain event type.</typeparam>
     /// <returns>Serialized domain event to serialization type.</returns>
-    TDomainEventDataSerializationType Serialize<TDomainEvent>(TDomainEvent domainEvent)
-        where TDomainEvent : DomainEvent;
+    TDomainEventDataSerializationType Serialize<TDomainEvent>(TDomainEvent domainEvent);
 
     /// <summary>
     /// Deserializes domain event from JSON string.
