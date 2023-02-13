@@ -24,6 +24,8 @@ jobs:
         dotnet-version: 7.0.x
     - name: Show build number
       run: echo ${{github.run_number}}
+    - name: Show working directory
+      run: echo ${{ env.working-directory }}
     - name: Restore dependencies
       run: dotnet restore
     - name: Build
@@ -35,6 +37,8 @@ jobs:
     runs-on: ubuntu-latest
     needs: [build]
     steps:
+    - name: Show working directory
+      run: echo ${{ env.working-directory }}
     - name: Test
       run: |
         dotnet test EventSourcing/EzDomain.EventSourcing.Tests.UnitTests/EzDomain.EventSourcing.Tests.UnitTests.csproj --no-build --verbosity normal --configuration Release
@@ -43,6 +47,8 @@ jobs:
     runs-on: ubuntu-latest
     needs: [build, test]
     steps:
+    - name: Show working directory
+      run: echo ${{ env.working-directory }}
     - name: Upload a Build Artifact
       uses: actions/upload-artifact@v3.1.2
       with:
