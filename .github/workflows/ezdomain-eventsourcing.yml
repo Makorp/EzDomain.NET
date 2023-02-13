@@ -30,7 +30,7 @@ jobs:
       run: dotnet restore
     - name: Build
       run: |
-        dotnet build EventSourcing/EzDomain.EventSourcing/EzDomain.EventSourcing.csproj --no-restore --configuration Release -p:BuildNumber="${{github.run_number}}"
+        dotnet build EventSourcing/EzDomain.EventSourcing/EzDomain.EventSourcing.csproj --no-restore --configuration Release /p:BuildNumber="${{github.run_number}}"
         dotnet build EventSourcing/EzDomain.EventSourcing.Tests.UnitTests/EzDomain.EventSourcing.Tests.UnitTests.csproj --no-restore --configuration Release
     - name: Test
       run: |
