@@ -39,5 +39,6 @@ jobs:
       uses: actions/upload-artifact@v3.1.2
       with:
         name: Publish artifacts
-        path: EzDomain.EventSourcing.zip
+        path: |
+          ./src/EventSourcing/EzDomain.EventSourcing/bin/Release/net7.0/EzDomain.EventSourcing.dll
           
