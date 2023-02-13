@@ -1,13 +1,43 @@
 using EzDomain.EventSourcing.Domain.Model;
+using EzDomain.EventSourcing.Exceptions;
+using Microsoft.Extensions.Logging;
 
 namespace EzDomain.EventSourcing.Domain.EventStores;
 
+[ExcludeFromCodeCoverage]
 public abstract class EventStore
     : IEventStore
 {
+    private readonly ILogger _logger;
+
+    protected EventStore(ILogger logger) => _logger = logger;
+
     public abstract Task<IReadOnlyCollection<DomainEvent>> GetByAggregateRootIdAsync(string aggregateRootId, long fromVersion, CancellationToken cancellationToken = default);
 
-    public abstract Task SaveAsync(IReadOnlyCollection<DomainEvent> events, CancellationToken cancellationToken = default);
+    public virtual async Task SaveAsync(IReadOnlyCollection<DomainEvent> events, CancellationToken cancellationToken = default)
+    {
+        try
+        {
+            await SaveInternalAsync(events, cancellationToken);
+        }
+        catch (Exception ex)
+        {
+            if (IsConcurrencyException(ex))
+            {
+                var concurrencyException = new ConcurrencyException("A concurrency exception occured while saving event stream to the event store.", ex);
+
+                _logger.LogError(concurrencyException, concurrencyException.Message);
+
+                throw concurrencyException;
+            }
+
+            _logger.LogError(ex, ex.Message);
+
+            throw;
+        }
+    }
+
+    protected abstract Task SaveInternalAsync(IReadOnlyCollection<DomainEvent> events, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Checks if concurrency occured while saving domain events to event store.

@@ -24,7 +24,7 @@ internal sealed class TestAggregateRoot
 
     protected override TestAggregateRootId DeserializeIdFromString(string serializedId) => new(serializedId);
 
-    private void On(BehaviorExecuted @event)
+    private void On(BehaviorExecuted domainEvent)
     {
     }
 }

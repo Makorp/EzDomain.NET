@@ -15,7 +15,6 @@ public sealed class JsonEventDataSerializer
     /// <typeparam name="TDomainEvent">Domain event type.</typeparam>
     /// <returns>Serialized domain event to JSON string.</returns>
     public string Serialize<TDomainEvent>(TDomainEvent domainEvent)
-        where TDomainEvent : DomainEvent
     {
         ArgumentNullException.ThrowIfNull(domainEvent);
 
