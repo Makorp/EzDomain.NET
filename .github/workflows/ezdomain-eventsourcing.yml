@@ -25,7 +25,7 @@ jobs:
     - name: Show build number
       run: echo ${{github.run_number}}
     - name: Show working directory
-      run: echo ${{ github.workspace }}
+      run: echo ${{ env.artifactPath }}
     - name: Restore dependencies
       run: dotnet restore
     - name: Build
