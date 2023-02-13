@@ -25,7 +25,7 @@ jobs:
     - name: Show build number
       run: echo ${{github.run_number}}
     - name: Show working directory
-      run: echo ${{ env.working-directory }}
+      run: echo ${{ github.workspace }}
     - name: Restore dependencies
       run: dotnet restore
     - name: Build
@@ -43,7 +43,7 @@ jobs:
       with: 
         dotnet-version: 7.0.x
     - name: Show working directory
-      run: echo ${{ env.working-directory }}
+      run: echo ${{ github.workspace }}
     - name: Test
       run: |
         dotnet test EventSourcing/EzDomain.EventSourcing.Tests.UnitTests/EzDomain.EventSourcing.Tests.UnitTests.csproj --no-build --verbosity normal --configuration Release
@@ -58,7 +58,7 @@ jobs:
       with: 
         dotnet-version: 7.0.x
     - name: Show working directory
-      run: echo ${{ env.working-directory }}
+      run: echo ${{ github.workspace }}
     - name: Upload a Build Artifact
       uses: actions/upload-artifact@v3.1.2
       with:
