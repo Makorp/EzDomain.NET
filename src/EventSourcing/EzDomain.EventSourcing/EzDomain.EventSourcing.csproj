@@ -13,8 +13,8 @@
         <PackageProjectUrl>https://github.com/Makorp/EzDomain.NET</PackageProjectUrl>
         <PackageLicenseUrl>https://github.com/Makorp/EzDomain.NET</PackageLicenseUrl>
         <RepositoryUrl>https://github.com/Makorp/EzDomain.NET</RepositoryUrl>
-        <AssemblyVersion>7.0.0.$(BuildNumber)</AssemblyVersion>
-        <FileVersion>7.0.0.$(BuildNumber)</FileVersion>
+        <AssemblyVersion>7.0.$(BuildNumber)</AssemblyVersion>
+<!--        <FileVersion>7.0.$(BuildNumber)</FileVersion>-->
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
     </PropertyGroup>
