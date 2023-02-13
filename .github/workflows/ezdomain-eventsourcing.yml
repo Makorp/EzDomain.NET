@@ -15,9 +15,7 @@ defaults:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
-
     steps:
     - uses: actions/checkout@v3
     - name: Setup .NET 7
@@ -32,13 +30,21 @@ jobs:
       run: |
         dotnet build EventSourcing/EzDomain.EventSourcing/EzDomain.EventSourcing.csproj --no-restore --configuration Release -p:BuildNumber=${{github.run_number}}
         dotnet build EventSourcing/EzDomain.EventSourcing.Tests.UnitTests/EzDomain.EventSourcing.Tests.UnitTests.csproj --no-restore --configuration Release
+
+  test:
+    runs-on: ubuntu-latest
+    steps:
     - name: Test
       run: |
         dotnet test EventSourcing/EzDomain.EventSourcing.Tests.UnitTests/EzDomain.EventSourcing.Tests.UnitTests.csproj --no-build --verbosity normal --configuration Release
+
+  upload-artifacts:
+    runs-on: ubuntu-latest
+    steps:
     - name: Upload a Build Artifact
       uses: actions/upload-artifact@v3.1.2
       with:
-        name: Publish artifacts
+        name: EzDomain.EventSourcing
         path: |
           ./src/EventSourcing/EzDomain.EventSourcing/bin/Release/net7.0/EzDomain.EventSourcing.dll
           
