@@ -37,8 +37,8 @@ jobs:
       with:
         name: EzDomain.EventSourcing
         path: |
-          EzDomain.EventSourcing/
-          EzDomain.EventSourcing.Tests.UnitTests/
+          ./src/EventSourcing/EzDomain.EventSourcing/
+          ./src/EventSourcing/EzDomain.EventSourcing.Tests.UnitTests/
 
   test:
     runs-on: ubuntu-latest
