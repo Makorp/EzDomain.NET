@@ -10,9 +10,18 @@ namespace EzDomain.EventSourcing.EventStores.Azure.TableStorage.Tests.Integratio
 [TestFixture]
 internal sealed class TableStorageStoreTests
 {
-    private readonly IConfiguration _config = new ConfigurationBuilder()
-        .AddEnvironmentVariables()
-        .Build();
+    private readonly IEventDataSerializer<string> _eventDataSerializer;
+    private readonly TableServiceClient _tableServiceClient;
+
+    public TableStorageStoreTests()
+    {
+        var config = new ConfigurationBuilder()
+            .AddEnvironmentVariables()
+            .Build();
+
+        _eventDataSerializer = new JsonEventDataSerializer();
+        _tableServiceClient = new TableServiceClient(config["EzDomain:AzureTableStorage:ConnectionString"]);
+    }
 
     private readonly Mock<ILogger> _mockLogger = new();
 
@@ -23,10 +32,10 @@ internal sealed class TableStorageStoreTests
         // Arrange
         var eventStore = new TableStorageStore(
             _mockLogger.Object,
-            new JsonEventDataSerializer(),
-            new TableServiceClient(_config["AzureTableStorage:ConnectionString"]));
+            _eventDataSerializer,
+            _tableServiceClient);
 
-        var eventsToStore = new DomainEvent[]
+        var domainEventsToStore = new DomainEvent[]
         {
             new StringEvent(aggregateRootId, stringValue),
             new IntEvent(aggregateRootId, intValue)
@@ -34,16 +43,16 @@ internal sealed class TableStorageStoreTests
 
         long aggregateRootVersion = -1;
 
-        foreach (var @event in eventsToStore)
+        foreach (var domainEvent in domainEventsToStore)
         {
-            @event.IncrementVersion(ref aggregateRootVersion);
+            domainEvent.IncrementVersion(ref aggregateRootVersion);
         }
 
         // Act
-        await eventStore.SaveAsync(eventsToStore, CancellationToken.None);
-        await eventStore.SaveAsync(eventsToStore, CancellationToken.None);
+        await eventStore.SaveAsync(domainEventsToStore, CancellationToken.None);
+        await eventStore.SaveAsync(domainEventsToStore, CancellationToken.None);
 
-        var events = await eventStore.GetByAggregateRootIdAsync(aggregateRootId, -1, CancellationToken.None);
+        var events = await eventStore.GetByAggregateRootIdAsync(aggregateRootId, Constants.InitialVersion, CancellationToken.None);
 
         // Assert
     }
