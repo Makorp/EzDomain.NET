@@ -60,5 +60,5 @@ jobs:
       with:
         name: EzDomain.EventSourcing
         path: |
-          nuget/packages/EzDomain.EventSourcing.*-build.${{github.run_number}}.nupkg
+          nuget/packages/EzDomain.EventSourcing.7.0.0-build.${{github.run_number}}.nupkg
           
