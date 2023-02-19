@@ -17,6 +17,7 @@ env:
 jobs:
   pack:
     runs-on: ubuntu-latest
+    environment: pre-release
     steps:
     - uses: actions/checkout@v3
     - name: Setup .NET 7
