@@ -13,6 +13,9 @@ defaults:
   run:
     working-directory: ./src
 
+env:
+  VERSION_PREFIX: 7.0.0
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -22,23 +25,12 @@ jobs:
       uses: actions/setup-dotnet@v3
       with: 
         dotnet-version: 7.0.x
-    - name: Show build number
-      run: echo ${{github.run_number}}
-    - name: Show working directory
-      run: echo ${{ env.artifactPath }}
     - name: Restore dependencies
       run: dotnet restore
     - name: Build
       run: |
-        dotnet build EventSourcing/EzDomain.EventSourcing/EzDomain.EventSourcing.csproj --no-restore --configuration Release -p:BuildNumber=${{github.run_number}}
+        dotnet build EventSourcing/EzDomain.EventSourcing/EzDomain.EventSourcing.csproj --configuration Release -p:BuildNumber=${{github.run_number}}
         dotnet build EventSourcing/EzDomain.EventSourcing.Tests.UnitTests/EzDomain.EventSourcing.Tests.UnitTests.csproj --no-restore --configuration Release
-    - name: Upload a Build Artifact
-      uses: actions/upload-artifact@v3.1.2
-      with:
-        name: EzDomain.EventSourcing
-        path: |
-          ./src/EventSourcing/EzDomain.EventSourcing/
-          ./src/EventSourcing/EzDomain.EventSourcing.Tests.UnitTests/
 
   test:
     runs-on: ubuntu-latest
@@ -49,23 +41,20 @@ jobs:
       uses: actions/setup-dotnet@v3
       with: 
         dotnet-version: 7.0.x
-    - name: Show working directory
-      run: echo ${{ github.workspace }}
     - name: Test
-      run: |
-        dotnet test EventSourcing/EzDomain.EventSourcing.Tests.UnitTests/EzDomain.EventSourcing.Tests.UnitTests.csproj --no-build --verbosity normal --configuration Release
+      run: dotnet test EventSourcing/EzDomain.EventSourcing.Tests.UnitTests/EzDomain.EventSourcing.Tests.UnitTests.csproj --no-build --verbosity normal --configuration Release
 
   upload-artifacts:
     runs-on: ubuntu-latest
-    needs: [build, test]
+    needs: [test]
     steps:
     - uses: actions/checkout@v3
     - name: Setup .NET 7
       uses: actions/setup-dotnet@v3
       with: 
         dotnet-version: 7.0.x
-    - name: Show working directory
-      run: echo ${{ github.workspace }}
+    - name: Pack nuget
+      run: dotnet pack EventSourcing/EzDomain.EventSourcing/EzDomain.EventSourcing.csproj -p:VersionPrefix=$VERSION_PREFIX --version-suffix=build.${{github.run_number}} --output nuget/packages --configuration Release
     - name: Upload a Build Artifact
       uses: actions/upload-artifact@v3.1.2
       with:
