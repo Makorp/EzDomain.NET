@@ -6,9 +6,13 @@ name: .NET
 on:
   push:
     branches: [ "**" ]
+    paths: |
+      ./src/EventSourcing/EzDomain.EventSourcing/**
       
   pull_request:
     branches: [ "**" ]
+    paths: |
+      ./src/EventSourcing/EzDomain.EventSourcing/**
 
 defaults:
   run:
