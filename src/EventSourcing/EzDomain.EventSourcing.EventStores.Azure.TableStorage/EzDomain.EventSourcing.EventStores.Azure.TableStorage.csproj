@@ -10,7 +10,7 @@
         <Title>EzDomain.NET - Azure Table Storage based event store</Title>
         <Copyright>MaKorp</Copyright>
         <PackageProjectUrl>https://github.com/Makorp/EzDomain.NET</PackageProjectUrl>
-        <PackageLicenseUrl>https://github.com/Makorp/EzDomain.NET</PackageLicenseUrl>
+        <PackageLicenseUrl>https://github.com/Makorp/EzDomain.NET/blob/main/LICENSE</PackageLicenseUrl>
         <RepositoryUrl>https://github.com/Makorp/EzDomain.NET</RepositoryUrl>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
