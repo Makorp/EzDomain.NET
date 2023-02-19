@@ -3,7 +3,6 @@
     <PropertyGroup>
         <LangVersion>11</LangVersion>
         <TargetFramework>net7.0</TargetFramework>
-        <VersionPrefix>$(VersionPrefix)</VersionPrefix>
         <Authors>Maciej Korzeniewski</Authors>
         <Description>
             This library helps to implementat event sourcing when using DDD.

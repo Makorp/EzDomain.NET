@@ -3,7 +3,6 @@
     <PropertyGroup>
         <LangVersion>11</LangVersion>
         <TargetFramework>net7.0</TargetFramework>
-        <VersionPrefix>$(VersionPrefix)</VersionPrefix>
         <Authors>Maciej Korzeniewski</Authors>
         <Description>
             This library implements Azure Table Storage event store for EzDomain.NET event sourcing.
