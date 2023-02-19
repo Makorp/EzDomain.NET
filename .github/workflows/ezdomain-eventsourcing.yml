@@ -67,7 +67,7 @@ jobs:
           
   push-pre-release:
     runs-on: ubuntu-latest
-    needs: [test]
+    needs: [pack]
     environment: pre-release
     steps:
     - uses: actions/checkout@v3
