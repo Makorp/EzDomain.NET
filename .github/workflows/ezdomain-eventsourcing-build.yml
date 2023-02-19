@@ -7,12 +7,12 @@ on:
   push:
     branches: [ "**" ]
     paths: |
-      EventSourcing/EzDomain.EventSourcing/**
+      ./src/EventSourcing/EzDomain.EventSourcing/**
       
   pull_request:
     branches: [ "**" ]
     paths: |
-      EventSourcing/EzDomain.EventSourcing/**
+      ./src/EventSourcing/EzDomain.EventSourcing/**
 
 defaults:
   run:
