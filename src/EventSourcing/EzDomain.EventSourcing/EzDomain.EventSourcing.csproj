@@ -8,7 +8,7 @@
             This library helps to implementat event sourcing when using DDD.
         </Description>
         <Title>EzDomain.NET - event sourcing core.</Title>
-        <Copyright>Maciej Korzeniewski</Copyright>
+        <Copyright>MaKorp</Copyright>
         <PackageProjectUrl>https://www.nuget.org/</PackageProjectUrl>
         <PackageLicenseUrl>https://github.com/Makorp/EzDomain.NET/blob/main/LICENSE</PackageLicenseUrl>
         <RepositoryUrl>https://github.com/Makorp/EzDomain.NET</RepositoryUrl>
