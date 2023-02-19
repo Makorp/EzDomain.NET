@@ -79,4 +79,4 @@ jobs:
       with:
         name: EzDomain.EventSourcing
     - name: Push pre-release
-      run: dotnet nuget push EzDomain.EventSourcing.7.0.0-build.${{github.run_number}}.nupkg
+      run: dotnet nuget push EzDomain.EventSourcing.7.0.0-build.${{github.run_number}}.nupkg -k {{ secrets.NUGET_API_KEY }} -s https://api.nuget.org/v3/index.json
