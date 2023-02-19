@@ -9,7 +9,7 @@
         </Description>
         <Title>EzDomain.NET - event sourcing core.</Title>
         <Copyright>MaKorp</Copyright>
-        <PackageProjectUrl>https://github.com/Makorp/EzDomain.NET</PackageProjectUrl>
+        <PackageProjectUrl>https://www.nuget.org/</PackageProjectUrl>
         <PackageLicenseUrl>https://github.com/Makorp/EzDomain.NET/blob/main/LICENSE</PackageLicenseUrl>
         <RepositoryUrl>https://github.com/Makorp/EzDomain.NET</RepositoryUrl>
         <ImplicitUsings>enable</ImplicitUsings>

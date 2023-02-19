@@ -7,9 +7,9 @@
         <Description>
             This library implements Azure Table Storage event store for EzDomain.NET event sourcing.
         </Description>
-        <Title>EzDomain.NET - Azure Table Storage based event store</Title>
+        <Title>EzDomain.NET - Azure Table Storage based event store.</Title>
         <Copyright>MaKorp</Copyright>
-        <PackageProjectUrl>https://github.com/Makorp/EzDomain.NET</PackageProjectUrl>
+        <PackageProjectUrl>https://www.nuget.org/</PackageProjectUrl>
         <PackageLicenseUrl>https://github.com/Makorp/EzDomain.NET/blob/main/LICENSE</PackageLicenseUrl>
         <RepositoryUrl>https://github.com/Makorp/EzDomain.NET</RepositoryUrl>
         <ImplicitUsings>enable</ImplicitUsings>
