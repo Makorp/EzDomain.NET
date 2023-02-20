@@ -29,5 +29,5 @@ jobs:
         dotnet pack EventSourcing/EzDomain.EventSourcing/EzDomain.EventSourcing.csproj --configuration Release -p:VersionPrefix=$VERSION_PREFIX --version-suffix=build.${{github.run_number}} --output ./nuget/packages
     - name: Push pre-release
       run: |
-        dotnet nuget push './nuget/packages/EzDomain.EventSourcing.7.0.0-build.${{github.run_number}}.nupkg' --api-key "$NUGET_API_KEY" --source https://api.nuget.org/v3/index.json
+        dotnet nuget push './nuget/packages/EzDomain.EventSourcing.7.0.0-build.${{github.run_number}}.nupkg' --api-key "$env:NUGET_API_KEY" --source https://api.nuget.org/v3/index.json
       
