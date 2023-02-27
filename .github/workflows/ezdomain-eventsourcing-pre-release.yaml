@@ -1,7 +1,7 @@
 name: .NET
 
 on:
-  workflow_dispatch:
+  release:
     branches: [ "pre-release" ]
     paths:
       - 'src/EventSourcing/EzDomain.EventSourcing/**'
@@ -15,7 +15,7 @@ env:
   NUGET_API_KEY: ${{secrets.NUGET_API_KEY}}
 
 jobs:
-  pack:
+  release-EzDomain_EventSourcing:
     runs-on: ubuntu-latest
     environment: pre-release
     steps:
