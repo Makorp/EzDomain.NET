@@ -24,6 +24,11 @@ public sealed class GetByAggregateRootIdAsync
     [OneTimeSetUp]
     public void OneTimeSetUp()
     {
+        foreach (var tableEntity in _tableEntities)
+        {
+            tableEntity.Add(nameof(tableEntity.RowKey), long.Parse(tableEntity.RowKey));
+        }
+
         _mockTableServiceClient
             .Setup(m => m.GetTableClient(It.IsAny<string>()))
             .Returns(_mockTableClient.Object);

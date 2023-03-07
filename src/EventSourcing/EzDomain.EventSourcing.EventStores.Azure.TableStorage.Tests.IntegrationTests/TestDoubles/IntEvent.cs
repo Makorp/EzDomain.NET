@@ -5,10 +5,6 @@ namespace EzDomain.EventSourcing.EventStores.Azure.TableStorage.Tests.Integratio
 internal sealed record IntEvent
     : DomainEvent
 {
-    public IntEvent()
-    {
-    }
-
     public IntEvent(string aggregateRootId, int intValue)
         : base(aggregateRootId)
     {

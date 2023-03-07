@@ -5,7 +5,6 @@ namespace EzDomain.EventSourcing.Domain.Model;
 /// <summary>
 /// Base class for domain events created by an aggregate root.
 /// </summary>
-[Serializable]
 public abstract record DomainEvent
 {
     private long _version;

@@ -12,13 +12,12 @@ public sealed class JsonEventDataSerializer
     /// Serializes domain event to JSON string.
     /// </summary>
     /// <param name="domainEvent">Domain event.</param>
-    /// <typeparam name="TDomainEvent">Domain event type.</typeparam>
     /// <returns>Serialized domain event to JSON string.</returns>
-    public string Serialize<TDomainEvent>(TDomainEvent domainEvent)
+    public string Serialize(DomainEvent domainEvent)
     {
         ArgumentNullException.ThrowIfNull(domainEvent);
 
-        return JsonSerializer.Serialize(domainEvent);
+        return JsonSerializer.Serialize(domainEvent, domainEvent.GetType());
     }
 
     /// <summary>

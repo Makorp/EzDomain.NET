@@ -30,7 +30,7 @@ public sealed class TableStorageStore
             .QueryAsync<TableEntity>(
                 tableEntity =>
                     tableEntity.PartitionKey.Equals(aggregateRootId) &&
-                    long.Parse(tableEntity.RowKey) >= fromVersion,
+                    tableEntity.GetInt64(nameof(tableEntity.RowKey)) >= fromVersion,
                 cancellationToken: cancellationToken)
             .ToListAsync(cancellationToken);
 
