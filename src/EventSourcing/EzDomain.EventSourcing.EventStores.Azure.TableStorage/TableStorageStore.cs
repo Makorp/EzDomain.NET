@@ -12,14 +12,12 @@ public sealed class TableStorageStore
 {
     private const string DefaultEventStoreName = "EventStore";
 
-    private readonly ILogger _logger;
     private readonly IEventDataSerializer<string> _serializer;
     private readonly TableServiceClient _tableServiceClient;
 
     public TableStorageStore(ILogger logger, IEventDataSerializer<string> serializer, TableServiceClient tableServiceClient)
         : base(logger)
     {
-        _logger = logger;
         _serializer = serializer;
         _tableServiceClient = tableServiceClient;
     }

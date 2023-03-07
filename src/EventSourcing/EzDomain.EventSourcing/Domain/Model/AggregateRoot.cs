@@ -10,7 +10,7 @@ public abstract class AggregateRoot<TId>
 
     private readonly List<MethodInfo> _eventListenerMethods;
 
-    private TId _id;
+    private TId? _id;
 
     /// <summary>
     /// Use this constructor only to restore aggregate root state from an event stream.
@@ -18,9 +18,9 @@ public abstract class AggregateRoot<TId>
     protected AggregateRoot()
     {
         _changes = new List<DomainEvent>();
-            
+
         _eventListenerMethods = InitializeEventListenerMethods();
-            
+
         Version = Constants.InitialVersion;
     }
 
@@ -29,15 +29,12 @@ public abstract class AggregateRoot<TId>
     /// </summary>
     /// <param name="id">Aggregate Root Identifier</param>
     protected AggregateRoot(TId id)
-        : this()
-    {
-        Id = id;
-    }
+        : this() => Id = id;
 
     [SuppressMessage("ReSharper", "JoinNullCheckWithUsage", Justification = "Left with if statement for readability")]
     public TId Id
     {
-        get => _id;
+        get => _id!;
         protected set
         {
             if (_id is not null)

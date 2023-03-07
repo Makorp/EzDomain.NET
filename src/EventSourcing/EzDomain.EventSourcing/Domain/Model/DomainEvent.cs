@@ -34,7 +34,7 @@ public abstract record DomainEvent
     /// <summary>
     /// Serialized to string aggregate root identifier.
     /// </summary>
-    public string AggregateRootId { get; }
+    public string? AggregateRootId { get; }
 
     /// <summary>
     /// Event version.

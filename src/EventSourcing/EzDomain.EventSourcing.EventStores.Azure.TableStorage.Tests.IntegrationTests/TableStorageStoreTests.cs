@@ -1,6 +1,7 @@
 using AutoFixture.NUnit3;
 using EzDomain.EventSourcing.Domain.Model;
 using EzDomain.EventSourcing.EventStores.Azure.TableStorage.Tests.IntegrationTests.TestDoubles;
+using EzDomain.EventSourcing.Exceptions;
 using EzDomain.EventSourcing.Serialization;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
@@ -10,21 +11,56 @@ namespace EzDomain.EventSourcing.EventStores.Azure.TableStorage.Tests.Integratio
 [TestFixture]
 internal sealed class TableStorageStoreTests
 {
-    private readonly IConfiguration _config = new ConfigurationBuilder()
-        .AddEnvironmentVariables()
-        .Build();
+    private readonly string _azureTableStorageConnectionString;
 
     private readonly Mock<ILogger> _mockLogger = new();
 
+    public TableStorageStoreTests()
+    {
+        var config = new ConfigurationBuilder()
+            .AddUserSecrets(typeof(TableStorageStoreTests).Assembly)
+            .Build();
+
+        _azureTableStorageConnectionString = config["AzureTableStorage:ConnectionString"]!;
+    }
+
     [Test]
     [AutoData]
-    public async Task GetByAggregateRootIdAsync_ReturnsAggregateRootEvents_WhenAggregateRootAndVersionAreProvided(string aggregateRootId, string stringValue, int intValue)
+    public async Task SaveAsync_ThrowsConcurrencyException_WhenEventsWithTheSameVersionsExist(string aggregateRootId, int intValue)
     {
         // Arrange
         var eventStore = new TableStorageStore(
             _mockLogger.Object,
             new JsonEventDataSerializer(),
-            new TableServiceClient(_config["AzureTableStorage:ConnectionString"]));
+            new TableServiceClient(_azureTableStorageConnectionString));
+
+        var eventsToStore = new DomainEvent[]
+        {
+            new IntEvent(aggregateRootId, intValue)
+        };
+
+        // Act
+        Func<Task> actSaveAsync = async () =>
+        {
+            await eventStore.SaveAsync(eventsToStore, CancellationToken.None);
+            await eventStore.SaveAsync(eventsToStore, CancellationToken.None);
+        };
+
+        // Assert
+        await actSaveAsync
+            .Should()
+            .ThrowExactlyAsync<ConcurrencyException>();
+    }
+
+    [Test]
+    [AutoData]
+    public async Task GetByAggregateRootIdAsync_ReturnsAggregateRootEvents_WhenSaveAsyncSavedEventsInEventStore(string aggregateRootId, string stringValue, int intValue)
+    {
+        // Arrange
+        var eventStore = new TableStorageStore(
+            _mockLogger.Object,
+            new JsonEventDataSerializer(),
+            new TableServiceClient(_azureTableStorageConnectionString));
 
         var eventsToStore = new DomainEvent[]
         {
@@ -32,7 +68,7 @@ internal sealed class TableStorageStoreTests
             new IntEvent(aggregateRootId, intValue)
         };
 
-        long aggregateRootVersion = -1;
+        var aggregateRootVersion = Constants.InitialVersion;
 
         foreach (var @event in eventsToStore)
         {
@@ -41,10 +77,15 @@ internal sealed class TableStorageStoreTests
 
         // Act
         await eventStore.SaveAsync(eventsToStore, CancellationToken.None);
-        await eventStore.SaveAsync(eventsToStore, CancellationToken.None);
 
-        var events = await eventStore.GetByAggregateRootIdAsync(aggregateRootId, -1, CancellationToken.None);
+        var events = await eventStore.GetByAggregateRootIdAsync(aggregateRootId, Constants.InitialVersion, CancellationToken.None);
 
         // Assert
+        foreach (var domainEvent in events)
+        {
+            eventsToStore
+                .Should()
+                .Contain(domainEvent);
+        }
     }
 }

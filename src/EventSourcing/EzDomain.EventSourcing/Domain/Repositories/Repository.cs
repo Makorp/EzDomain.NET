@@ -5,7 +5,7 @@ using EzDomain.EventSourcing.Exceptions;
 
 namespace EzDomain.EventSourcing.Domain.Repositories;
 
-public sealed class Repository<TAggregateRoot, TAggregateRootId>
+public class Repository<TAggregateRoot, TAggregateRootId>
     : IRepository<TAggregateRoot, TAggregateRootId>
     where TAggregateRoot : class, IAggregateRoot<TAggregateRootId>
     where TAggregateRootId : class, IAggregateRootId
