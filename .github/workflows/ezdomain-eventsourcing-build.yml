@@ -43,8 +43,8 @@ jobs:
         dotnet-version: 7.0.x
     - name: Test
       run: |
-        dotnet test EventSourcing/EzDomain.EventSourcing.Tests.UnitTests/EzDomain.EventSourcing.Tests.UnitTests.csproj --configuration Release --no-build --verbosity normal
-        dotnet test EventSourcing/EzDomain.EventSourcing.EventStores.Azure.TableStorage.Tests.UnitTests/EzDomain.EventSourcing.EventStores.Azure.TableStorage.Tests.UnitTests.csproj --configuration Release --no-build --verbosity normal
+        dotnet test EventSourcing/EzDomain.EventSourcing.Tests.UnitTests/EzDomain.EventSourcing.Tests.UnitTests.csproj --configuration Release --verbosity normal
+        dotnet test EventSourcing/EzDomain.EventSourcing.EventStores.Azure.TableStorage.Tests.UnitTests/EzDomain.EventSourcing.EventStores.Azure.TableStorage.Tests.UnitTests.csproj --configuration Release --verbosity normal
 
   run-integration-test:
     runs-on: ubuntu-latest
@@ -58,4 +58,4 @@ jobs:
         dotnet-version: 7.0.x
     - name: Test
       run: |
-        dotnet test EventSourcing/EzDomain.EventSourcing.EventStores.Azure.TableStorage.Tests.IntegrationTests/EzDomain.EventSourcing.EventStores.Azure.TableStorage.Tests.IntegrationTests.csproj --configuration Release --no-build --verbosity normal
+        dotnet test EventSourcing/EzDomain.EventSourcing.EventStores.Azure.TableStorage.Tests.IntegrationTests/EzDomain.EventSourcing.EventStores.Azure.TableStorage.Tests.IntegrationTests.csproj --configuration Release --verbosity normal
