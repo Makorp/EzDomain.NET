@@ -34,12 +34,12 @@ public sealed class TableStorageStore
                 cancellationToken: cancellationToken)
             .ToListAsync(cancellationToken);
 
-        var events = tableEntities
+        var domainEvents = tableEntities
             .Select(ParseToEvent)
             .OrderBy(domainEvent => domainEvent.Version)
             .ToList();
 
-        return events;
+        return domainEvents;
     }
 
     protected override async Task SaveInternalAsync(IReadOnlyCollection<DomainEvent> events, CancellationToken cancellationToken = default)
