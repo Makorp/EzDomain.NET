@@ -1,5 +1,4 @@
 using EzDomain.EventSourcing.Domain.EventStores;
-using EzDomain.EventSourcing.Domain.Factories;
 using EzDomain.EventSourcing.Domain.Model;
 using EzDomain.EventSourcing.Exceptions;
 
@@ -7,17 +6,12 @@ namespace EzDomain.EventSourcing.Domain.Repositories;
 
 public class Repository<TAggregateRoot, TAggregateRootId>
     : IRepository<TAggregateRoot, TAggregateRootId>
-    where TAggregateRoot : class, IAggregateRoot<TAggregateRootId>
+    where TAggregateRoot : class, IAggregateRoot<TAggregateRootId>, new()
     where TAggregateRootId : class, IAggregateRootId
 {
-    private readonly IAggregateRootFactory<TAggregateRoot, TAggregateRootId> _aggregateRootFactory;
     private readonly IEventStore _eventStore;
 
-    public Repository(IAggregateRootFactory<TAggregateRoot, TAggregateRootId> aggregateRootFactory, IEventStore eventStore)
-    {
-        _aggregateRootFactory = aggregateRootFactory;
-        _eventStore = eventStore;
-    }
+    public Repository(IEventStore eventStore) => _eventStore = eventStore;
 
     /// <summary>
     /// Gets aggregate root with its correct state by aggregate root identifier.
@@ -25,15 +19,15 @@ public class Repository<TAggregateRoot, TAggregateRootId>
     /// <param name="aggregateRootId">Aggregate root identifier.</param>
     /// <param name="cancellationToken">Cancellation token.</param>
     /// <returns>Aggregate root.</returns>
-    public async Task<TAggregateRoot> GetByIdAsync(string aggregateRootId, CancellationToken cancellationToken = default)
+    public async Task<TAggregateRoot?> GetByIdAsync(string aggregateRootId, CancellationToken cancellationToken = default)
     {
-        var eventStream = await _eventStore.GetByAggregateRootIdAsync(aggregateRootId, Constants.InitialVersion, cancellationToken);
+        var eventStream = await _eventStore.GetEventStreamAsync(aggregateRootId, Constants.InitialVersion, cancellationToken);
         if (!eventStream.Any())
         {
             return default;
         }
 
-        var aggregateRoot = _aggregateRootFactory.Create();
+        var aggregateRoot = new TAggregateRoot();
         var aggregateRootBehavior = CastToBehavior(aggregateRoot);
 
         aggregateRootBehavior.RestoreFromStream(eventStream);
@@ -51,9 +45,7 @@ public class Repository<TAggregateRoot, TAggregateRootId>
     public async Task<IReadOnlyCollection<DomainEvent>> SaveAsync(TAggregateRoot aggregateRoot, CancellationToken cancellationToken = default)
     {
         if (aggregateRoot is null)
-        {
             throw new AggregateRootNullException(nameof(aggregateRoot));
-        }
 
         var aggregateRootBehavior = CastToBehavior(aggregateRoot);
 
@@ -65,7 +57,7 @@ public class Repository<TAggregateRoot, TAggregateRootId>
 
         aggregateRootBehavior.CommitChanges();
 
-        await _eventStore.SaveAsync(changesToSave, cancellationToken);
+        await _eventStore.AppendToStreamAsync(changesToSave, cancellationToken);
 
         return changesToSave;
     }

@@ -17,5 +17,5 @@ public interface IEventDataSerializer<TDomainEventDataSerializationType>
     /// <param name="obj">Serialization type.</param>
     /// <param name="typeName">Full name of domain event type.</param>
     /// <returns>Domain event object.</returns>
-    DomainEvent Deserialize(TDomainEventDataSerializationType obj, string typeName);
+    DomainEvent? Deserialize(TDomainEventDataSerializationType obj, string typeName);
 }

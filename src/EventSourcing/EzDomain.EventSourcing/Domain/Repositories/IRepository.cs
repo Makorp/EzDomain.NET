@@ -12,7 +12,7 @@ public interface IRepository<TAggregateRoot, in TAggregateRootId>
     /// <param name="aggregateRootId">Aggregate root identifier.</param>
     /// <param name="cancellationToken">Cancellation token.</param>
     /// <returns>Aggregate root.</returns>
-    Task<TAggregateRoot> GetByIdAsync(string aggregateRootId, CancellationToken cancellationToken = default);
+    Task<TAggregateRoot?> GetByIdAsync(string aggregateRootId, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Saves state of aggregate root in event store and returns newly stored domain events.

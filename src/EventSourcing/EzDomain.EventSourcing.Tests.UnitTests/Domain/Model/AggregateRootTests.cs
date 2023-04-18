@@ -120,7 +120,7 @@ public sealed class AggregateRootTests
     {
         // Arrange
         const int expectedNumberOfChangesToSave = 1;
-        const int expectedVersion = 0;
+        const int expectedVersion = 1;
         const int expectedNumberOfUncommittedChanges = 0;
 
         var aggregateRootId = new TestAggregateRootId(serializedAggregateRootId);
@@ -139,7 +139,7 @@ public sealed class AggregateRootTests
         {
             changesToSave[i].Version
                 .Should()
-                .Be(i);
+                .Be(expectedVersion);
         }
 
         changesToSave.Length
