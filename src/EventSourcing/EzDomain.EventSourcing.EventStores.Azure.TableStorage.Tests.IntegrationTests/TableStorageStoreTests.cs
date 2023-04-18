@@ -42,8 +42,8 @@ internal sealed class TableStorageStoreTests
         // Act
         Func<Task> actSaveAsync = async () =>
         {
-            await eventStore.SaveAsync(eventsToStore, CancellationToken.None);
-            await eventStore.SaveAsync(eventsToStore, CancellationToken.None);
+            await eventStore.AppendToStreamAsync(eventsToStore, CancellationToken.None);
+            await eventStore.AppendToStreamAsync(eventsToStore, CancellationToken.None);
         };
 
         // Assert
@@ -76,9 +76,9 @@ internal sealed class TableStorageStoreTests
         }
 
         // Act
-        await eventStore.SaveAsync(eventsToStore, CancellationToken.None);
+        await eventStore.AppendToStreamAsync(eventsToStore, CancellationToken.None);
 
-        var events = await eventStore.GetByAggregateRootIdAsync(aggregateRootId, Constants.InitialVersion, CancellationToken.None);
+        var events = await eventStore.GetEventStreamAsync(aggregateRootId, Constants.InitialVersion, CancellationToken.None);
 
         // Assert
         foreach (var domainEvent in events)

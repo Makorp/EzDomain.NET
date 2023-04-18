@@ -10,21 +10,23 @@ namespace EzDomain.EventSourcing.EventStores.Azure.TableStorage;
 public sealed class TableStorageStore
     : EventStore
 {
-    private const string DefaultEventStoreName = "EventStore";
-
     private readonly IEventDataSerializer<string> _serializer;
     private readonly TableServiceClient _tableServiceClient;
 
-    public TableStorageStore(ILogger logger, IEventDataSerializer<string> serializer, TableServiceClient tableServiceClient)
+    private readonly string _eventStoreName;
+
+    public TableStorageStore(ILogger logger, IEventDataSerializer<string> serializer, TableServiceClient tableServiceClient, string eventStoreName = Constants.DefaultEventStoreName)
         : base(logger)
     {
         _serializer = serializer;
         _tableServiceClient = tableServiceClient;
+
+        _eventStoreName = eventStoreName;
     }
 
-    public override async Task<IReadOnlyCollection<DomainEvent>> GetByAggregateRootIdAsync(string aggregateRootId, long fromVersion, CancellationToken cancellationToken = default)
+    public override async Task<IReadOnlyCollection<DomainEvent>> GetEventStreamAsync(string aggregateRootId, long fromVersion, CancellationToken cancellationToken = default)
     {
-        var tableClient = _tableServiceClient.GetTableClient(DefaultEventStoreName);
+        var tableClient = _tableServiceClient.GetTableClient(_eventStoreName);
 
         var tableEntities = await tableClient
             .QueryAsync<TableEntity>(
@@ -42,14 +44,12 @@ public sealed class TableStorageStore
         return domainEvents;
     }
 
-    protected override async Task SaveInternalAsync(IReadOnlyCollection<DomainEvent> events, CancellationToken cancellationToken = default)
+    protected override async Task AppendToStreamInternalAsync(IEnumerable<DomainEvent> events, CancellationToken cancellationToken = default)
     {
-        var tableClient = _tableServiceClient.GetTableClient(DefaultEventStoreName);
-
-        var streamId = Guid.NewGuid().ToString();
+        var tableClient = _tableServiceClient.GetTableClient(_eventStoreName);
 
         var transactionActions = events
-            .Select(domainEvent => CreateTableTransactionAction(domainEvent, streamId))
+            .Select(CreateTableTransactionAction)
             .ToList();
 
         await tableClient.SubmitTransactionAsync(transactionActions, cancellationToken);
@@ -71,16 +71,15 @@ public sealed class TableStorageStore
         return domainEvent;
     }
 
-    private TableTransactionAction CreateTableTransactionAction(DomainEvent domainEvent, string streamId) =>
+    private TableTransactionAction CreateTableTransactionAction(DomainEvent domainEvent) =>
         new(
             TableTransactionActionType.Add,
-            ParseToTableEntity(domainEvent, streamId),
+            ParseToTableEntity(domainEvent),
             new ETag($"{domainEvent.AggregateRootId}_{domainEvent.Version}"));
 
-    private TableEntity ParseToTableEntity(DomainEvent domainEvent, string streamId) =>
+    private TableEntity ParseToTableEntity(DomainEvent domainEvent) =>
         new(domainEvent.AggregateRootId, domainEvent.Version.ToString())
         {
-            { "StreamId", streamId },
             { "Type", domainEvent.GetType().AssemblyQualifiedName },
             { "Data", _serializer.Serialize(domainEvent) }
         };
