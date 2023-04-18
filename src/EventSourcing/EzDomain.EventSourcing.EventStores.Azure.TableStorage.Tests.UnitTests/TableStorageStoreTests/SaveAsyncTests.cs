@@ -118,7 +118,7 @@ public class SaveAsyncTests
         addDomainEvents(eventStream);
 
         // Act
-        var act = async () => await eventStore.SaveAsync(eventStream, CancellationToken.None);
+        var act = async () => await eventStore.AppendToStreamAsync(eventStream, CancellationToken.None);
 
         // Assert
         await assert(act);

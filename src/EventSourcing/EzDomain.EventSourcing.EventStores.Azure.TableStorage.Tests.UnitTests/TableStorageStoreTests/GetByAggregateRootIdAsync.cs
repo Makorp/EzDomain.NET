@@ -83,7 +83,7 @@ public sealed class GetByAggregateRootIdAsync
             _mockTableServiceClient.Object);
 
         // Act
-        var aggregateRootEvents = await eventStore.GetByAggregateRootIdAsync(
+        var aggregateRootEvents = await eventStore.GetEventStreamAsync(
             ExistingAggregateRootId,
             Constants.InitialVersion,
             CancellationToken.None);
@@ -117,7 +117,7 @@ public sealed class GetByAggregateRootIdAsync
             _mockTableServiceClient.Object);
 
         // Act
-        var aggregateRootEvents = await eventStore.GetByAggregateRootIdAsync(
+        var aggregateRootEvents = await eventStore.GetEventStreamAsync(
             Guid.Empty.ToString(),
             Constants.InitialVersion,
             CancellationToken.None);

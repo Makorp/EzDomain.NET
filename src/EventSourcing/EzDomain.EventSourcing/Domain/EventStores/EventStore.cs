@@ -12,13 +12,13 @@ public abstract class EventStore
 
     protected EventStore(ILogger logger) => _logger = logger;
 
-    public abstract Task<IReadOnlyCollection<DomainEvent>> GetByAggregateRootIdAsync(string aggregateRootId, long fromVersion, CancellationToken cancellationToken = default);
+    public abstract Task<IReadOnlyCollection<DomainEvent>> GetEventStreamAsync(string streamId, long fromVersion, CancellationToken cancellationToken = default);
 
-    public virtual async Task SaveAsync(IReadOnlyCollection<DomainEvent> events, CancellationToken cancellationToken = default)
+    public virtual async Task AppendToStreamAsync(IReadOnlyCollection<DomainEvent> events, CancellationToken cancellationToken = default)
     {
         try
         {
-            await SaveInternalAsync(events, cancellationToken);
+            await AppendToStreamInternalAsync(events, cancellationToken);
         }
         catch (Exception ex)
         {
@@ -37,7 +37,7 @@ public abstract class EventStore
         }
     }
 
-    protected abstract Task SaveInternalAsync(IReadOnlyCollection<DomainEvent> events, CancellationToken cancellationToken = default);
+    protected abstract Task AppendToStreamInternalAsync(IEnumerable<DomainEvent> events, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Checks if concurrency occured while saving domain events to event store.

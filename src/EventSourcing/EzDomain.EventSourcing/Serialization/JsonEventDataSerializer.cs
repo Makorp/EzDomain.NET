@@ -27,13 +27,11 @@ public sealed class JsonEventDataSerializer
     /// <param name="typeName">Full name of domain event type.</param>
     /// <returns>Domain event object.</returns>
     /// <exception cref="InvalidOperationException">Thrown if type of domain event does not exist.</exception>
-    public DomainEvent Deserialize(string jsonString, string typeName)
+    public DomainEvent? Deserialize(string jsonString, string typeName)
     {
         var eventType = Type.GetType(typeName);
         if (eventType is null)
-        {
             throw new InvalidOperationException("Provided type is incorrect");
-        }
 
         var jsonNode = JsonNode.Parse(jsonString)!;
 
