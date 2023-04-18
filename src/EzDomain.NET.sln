@@ -12,6 +12,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EzDomain.EventSourcing.Even
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EzDomain.EventSourcing.EventStores.Azure.TableStorage.Tests.UnitTests", "EventSourcing\EzDomain.EventSourcing.EventStores.Azure.TableStorage.Tests.UnitTests\EzDomain.EventSourcing.EventStores.Azure.TableStorage.Tests.UnitTests.csproj", "{594E6F26-8039-43BD-B27B-2FAB1DD36648}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EzDomain.EventSourcing.EventStores.MongoDbEventStore", "EventSourcing\EzDomain.EventSourcing.EventStores.MongoDbEventStore\EzDomain.EventSourcing.EventStores.MongoDbEventStore.csproj", "{11DFB65C-7D59-4B05-BE50-23D559A166BC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,6 +25,7 @@ Global
 		{525944D2-1AD8-4E9A-874A-2B4EE8A47B2A} = {8318F54C-CB81-4F0A-B3D1-B753F3CFA122}
 		{1A1A4882-4142-4D0E-9323-F3C9A6E833D5} = {8318F54C-CB81-4F0A-B3D1-B753F3CFA122}
 		{594E6F26-8039-43BD-B27B-2FAB1DD36648} = {8318F54C-CB81-4F0A-B3D1-B753F3CFA122}
+		{11DFB65C-7D59-4B05-BE50-23D559A166BC} = {8318F54C-CB81-4F0A-B3D1-B753F3CFA122}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{0B8B3286-2619-4A6A-853E-DE3B22CCEA6C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -46,5 +49,9 @@ Global
 		{594E6F26-8039-43BD-B27B-2FAB1DD36648}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{594E6F26-8039-43BD-B27B-2FAB1DD36648}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{594E6F26-8039-43BD-B27B-2FAB1DD36648}.Release|Any CPU.Build.0 = Release|Any CPU
+		{11DFB65C-7D59-4B05-BE50-23D559A166BC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{11DFB65C-7D59-4B05-BE50-23D559A166BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{11DFB65C-7D59-4B05-BE50-23D559A166BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{11DFB65C-7D59-4B05-BE50-23D559A166BC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
