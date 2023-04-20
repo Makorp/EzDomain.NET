@@ -12,7 +12,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EzDomain.EventSourcing.Even
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EzDomain.EventSourcing.EventStores.Azure.TableStorage.Tests.UnitTests", "EventSourcing\EzDomain.EventSourcing.EventStores.Azure.TableStorage.Tests.UnitTests\EzDomain.EventSourcing.EventStores.Azure.TableStorage.Tests.UnitTests.csproj", "{594E6F26-8039-43BD-B27B-2FAB1DD36648}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EzDomain.EventSourcing.EventStores.MongoDbEventStore", "EventSourcing\EzDomain.EventSourcing.EventStores.MongoDbEventStore\EzDomain.EventSourcing.EventStores.MongoDbEventStore.csproj", "{11DFB65C-7D59-4B05-BE50-23D559A166BC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EzDomain.EventSourcing.EventStores.Mongo", "EventSourcing\EzDomain.EventSourcing.EventStores.Mongo\EzDomain.EventSourcing.EventStores.Mongo.csproj", "{11DFB65C-7D59-4B05-BE50-23D559A166BC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

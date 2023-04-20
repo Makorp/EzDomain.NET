@@ -37,7 +37,7 @@ public abstract class EventStore
         }
     }
 
-    protected abstract Task AppendToStreamInternalAsync(IEnumerable<DomainEvent> events, CancellationToken cancellationToken = default);
+    protected abstract Task AppendToStreamInternalAsync(IReadOnlyCollection<DomainEvent> events, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Checks if concurrency occured while saving domain events to event store.
