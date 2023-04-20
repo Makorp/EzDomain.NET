@@ -44,7 +44,7 @@ public sealed class TableStorageStore
         return domainEvents;
     }
 
-    protected override async Task AppendToStreamInternalAsync(IEnumerable<DomainEvent> events, CancellationToken cancellationToken = default)
+    protected override async Task AppendToStreamInternalAsync(IReadOnlyCollection<DomainEvent> events, CancellationToken cancellationToken = default)
     {
         var tableClient = _tableServiceClient.GetTableClient(_eventStoreName);
 
@@ -66,9 +66,7 @@ public sealed class TableStorageStore
         var eventData = tableEntity.GetString("Data");
         var eventType = tableEntity.GetString("Type");
 
-        var domainEvent = _serializer.Deserialize(eventData, eventType);
-
-        return domainEvent;
+        return _serializer.Deserialize(eventData, eventType)!;
     }
 
     private TableTransactionAction CreateTableTransactionAction(DomainEvent domainEvent) =>

@@ -12,7 +12,9 @@ public abstract record DomainEvent
     /// <summary>
     /// Use this constructor only for deserialization form an event stream.
     /// </summary>
+#pragma warning disable CS8618
     protected DomainEvent() => _version = Constants.InitialVersion;
+#pragma warning restore CS8618
 
     /// <summary>
     /// Use this constructor only for creation of a new event.
@@ -31,7 +33,7 @@ public abstract record DomainEvent
     /// <summary>
     /// Serialized to string aggregate root identifier.
     /// </summary>
-    public string? AggregateRootId { get; }
+    public string AggregateRootId { get; }
 
     /// <summary>
     /// Event version.
