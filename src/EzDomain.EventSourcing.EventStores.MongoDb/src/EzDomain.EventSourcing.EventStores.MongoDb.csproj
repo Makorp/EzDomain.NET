@@ -8,7 +8,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\..\..\EventSourcing\EzDomain.EventSourcing\EzDomain.EventSourcing.csproj" />
-      <ProjectReference Include="..\..\EventSourcing\EzDomain.EventSourcing\EzDomain.EventSourcing.csproj" />
+      <ProjectReference Include="..\..\EzDomain.EventSourcing\src\EzDomain.EventSourcing.csproj" />
     </ItemGroup>
 
     <ItemGroup>
