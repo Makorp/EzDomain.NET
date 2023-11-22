@@ -58,6 +58,14 @@ jobs:
       uses: actions/setup-dotnet@v3
       with: 
         dotnet-version: 7.0.x
+    - name: Set verbosity level
+      id: verbosity
+      run: |
+        if [[ "${{ github.event.inputs.use-diagnostics-verbosity }}" == "true" ]]; then
+          echo "::set-output name=level::diagnostic"
+        else
+          echo "::set-output name=level::normal"
+        fi
     - name: Run unit tests
       run: |
         dotnet test EzDomain.EventSourcing/tests/UnitTests/EzDomain.EventSourcing.Tests.UnitTests.csproj --configuration Release --verbosity ${{ steps.verbosity.outputs.level }}
