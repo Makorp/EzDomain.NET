@@ -7,7 +7,7 @@ on:
       - 'src/EzDomain.EventSourcing/src/**'
     inputs:
       use-diagnostics-verbosity:
-        description: 'Use diagnostics verbosity'
+        description: 'Use diagnostics verbosity level'
         required: true
         default: false
         type: boolean
@@ -34,12 +34,20 @@ jobs:
       uses: actions/setup-dotnet@v3
       with: 
         dotnet-version: 7.0.x
+    - name: Set verbosity level
+      id: verbosity
+      run: |
+        if [[ "${{ github.event.inputs.use-diagnostics-verbosity }}" == "true" ]]; then
+          echo "::set-output name=level::diagnostic"
+        else
+          echo "::set-output name=level::normal"
+        fi
     - name: Restore project dependencies
       run: |
-        dotnet restore EzDomain.EventSourcing/EzDomain.EventSourcing.sln
+        dotnet restore EzDomain.EventSourcing/EzDomain.EventSourcing.sln --verbosity ${{ steps.verbosity.outputs.level }}
     - name: Build solution projects
       run: |
-        dotnet build EzDomain.EventSourcing/EzDomain.EventSourcing.sln --configuration Release --verbosity normal
+        dotnet build EzDomain.EventSourcing/EzDomain.EventSourcing.sln --configuration Release --verbosity ${{ steps.verbosity.outputs.level }}
 
   run-unit-tests:
     runs-on: ubuntu-latest
@@ -52,4 +60,4 @@ jobs:
         dotnet-version: 7.0.x
     - name: Run unit tests
       run: |
-        dotnet test EzDomain.EventSourcing/tests/UnitTests/EzDomain.EventSourcing.Tests.UnitTests.csproj --configuration Release --verbosity normal
+        dotnet test EzDomain.EventSourcing/tests/UnitTests/EzDomain.EventSourcing.Tests.UnitTests.csproj --configuration Release --verbosity ${{ steps.verbosity.outputs.level }}
