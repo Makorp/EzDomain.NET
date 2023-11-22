@@ -29,10 +29,10 @@ jobs:
       with: 
         dotnet-version: 7.0.x
     - name: Restore dependencies
-      run: dotnet restore
+      run: dotnet restore EzDomain.EventSourcing/EzDomain.EventSourcing.sln
     - name: Build solution
       run: |
-        dotnet build ./src/EzDomain.EventSourcing/EzDomain.EventSourcing.sln --configuration Release --verbosity normal
+        dotnet build EzDomain.EventSourcing/EzDomain.EventSourcing.sln --configuration Release --verbosity normal
 
   run-unit-tests:
     runs-on: ubuntu-latest
@@ -45,4 +45,4 @@ jobs:
         dotnet-version: 7.0.x
     - name: Run unit tests
       run: |
-        dotnet test ./src/EzDomain.EventSourcing/tests/UnitTests/EzDomain.EventSourcing.Tests.UnitTests.csproj --configuration Release --verbosity normal
+        dotnet test EzDomain.EventSourcing/tests/UnitTests/EzDomain.EventSourcing.Tests.UnitTests.csproj --configuration Release --verbosity normal
