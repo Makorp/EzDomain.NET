@@ -5,12 +5,6 @@ on:
     branches: [ "**" ]
     paths:
       - 'src/EzDomain.EventSourcing/src/**'
-    inputs:
-      use-diagnostics-verbosity:
-        description: 'Use diagnostics verbosity level'
-        required: true
-        default: false
-        type: boolean
   push:
     branches: [ "**" ]
     paths:
@@ -34,20 +28,12 @@ jobs:
       uses: actions/setup-dotnet@v3
       with: 
         dotnet-version: 7.0.x
-    - name: Set verbosity level
-      id: verbosity
-      run: |
-        if [[ "${{ github.event.inputs.use-diagnostics-verbosity }}" == "true" ]]; then
-          echo "::set-output name=level::diagnostic"
-        else
-          echo "::set-output name=level::normal"
-        fi
     - name: Restore project dependencies
       run: |
-        dotnet restore EzDomain.EventSourcing/EzDomain.EventSourcing.sln --verbosity ${{ steps.verbosity.outputs.level }}
+        dotnet restore EzDomain.EventSourcing/EzDomain.EventSourcing.sln
     - name: Build solution projects
       run: |
-        dotnet build EzDomain.EventSourcing/EzDomain.EventSourcing.sln --configuration Release --verbosity ${{ steps.verbosity.outputs.level }}
+        dotnet build EzDomain.EventSourcing/EzDomain.EventSourcing.sln --configuration Release
 
   run-unit-tests:
     runs-on: ubuntu-latest
@@ -58,14 +44,6 @@ jobs:
       uses: actions/setup-dotnet@v3
       with: 
         dotnet-version: 7.0.x
-    - name: Set verbosity level
-      id: verbosity
-      run: |
-        if [[ "${{ github.event.inputs.use-diagnostics-verbosity }}" == "true" ]]; then
-          echo "::set-output name=level::diagnostic"
-        else
-          echo "::set-output name=level::normal"
-        fi
     - name: Run unit tests
       run: |
-        dotnet test EzDomain.EventSourcing/tests/UnitTests/EzDomain.EventSourcing.Tests.UnitTests.csproj --configuration Release --verbosity ${{ steps.verbosity.outputs.level }}
+        dotnet test EzDomain.EventSourcing/tests/UnitTests/EzDomain.EventSourcing.Tests.UnitTests.csproj --configuration Release

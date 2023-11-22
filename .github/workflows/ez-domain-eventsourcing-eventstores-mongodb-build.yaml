@@ -1,0 +1,36 @@
+name: Build EzDomain.EventSourcing.EventStores.MongoDb solution
+
+on:
+  workflow_dispatch:
+    branches: [ "**" ]
+    paths:
+      - 'src/EzDomain.EventSourcing.EventStores.MongoDb/src/**'
+  push:
+    branches: [ "**" ]
+    paths:
+      - 'src/EzDomain.EventSourcing.EventStores.MongoDb/src/**'
+      
+  pull_request:
+    branches: [ "**" ]
+    paths:
+      - 'src/EzDomain.EventSourcing.EventStores.MongoDb/src/**'
+
+defaults:
+  run:
+    working-directory: ./src
+
+jobs:
+  build-solution-projects:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Setup .NET 7
+      uses: actions/setup-dotnet@v3
+      with: 
+        dotnet-version: 7.0.x
+    - name: Restore project dependencies
+      run: |
+        dotnet restore EzDomain.EventSourcing.EventStores.MongoDb/EzDomain.EventSourcing.EventStores.MongoDb.sln
+    - name: Build solution projects
+      run: |
+        dotnet build EzDomain.EventSourcing.EventStores.MongoDb/EzDomain.EventSourcing.EventStores.MongoDb.sln --configuration Release
