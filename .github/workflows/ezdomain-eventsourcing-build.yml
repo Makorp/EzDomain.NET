@@ -1,7 +1,7 @@
 name: Build solution
 
 on:
-  workflow-dispatch:
+  workflow_dispatch:
     branches: [ "**" ]
     paths:
       - 'src/EzDomain.EventSourcing/src/**'
