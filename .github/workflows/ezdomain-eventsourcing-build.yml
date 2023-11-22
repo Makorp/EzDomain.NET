@@ -32,9 +32,9 @@ jobs:
       run: dotnet restore
     - name: Build solution
       run: |
-        dotnet build EzDomain.EventSourcing/EzDomain.EventSourcing.sln
+        dotnet build /EzDomain.EventSourcing/EzDomain.EventSourcing.sln
 
-  run-unit-test:
+  run-unit-tests:
     runs-on: ubuntu-latest
     needs: [build-solution]
     steps:
@@ -45,4 +45,4 @@ jobs:
         dotnet-version: 7.0.x
     - name: Run unit tests
       run: |
-        dotnet test EzDomain.EventSourcing/tests/UnitTests/EzDomain.EventSourcing.Tests.UnitTests.csproj --configuration Release --verbosity normal
+        dotnet test /EzDomain.EventSourcing/tests/UnitTests/EzDomain.EventSourcing.Tests.UnitTests.csproj --configuration Release --verbosity normal
