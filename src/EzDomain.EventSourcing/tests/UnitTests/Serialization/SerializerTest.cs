@@ -8,9 +8,9 @@ public abstract class SerializerTest<TEventDataSerializationType>
     private const string StringProp1Value = "123";
     private const string StringProp2Value = "456";
 
-    private readonly IEventDataSerializer<TEventDataSerializationType> _eventSerializer;
+    private readonly IDomainEventDataSerializer<TEventDataSerializationType> _eventSerializer;
 
-    protected SerializerTest(IEventDataSerializer<TEventDataSerializationType> eventSerializer)
+    protected SerializerTest(IDomainEventDataSerializer<TEventDataSerializationType> eventSerializer)
     {
         _eventSerializer = eventSerializer;
     }
@@ -33,7 +33,7 @@ public abstract class SerializerTest<TEventDataSerializationType>
         // Act
         var serializedEvent = _eventSerializer.Serialize(domainEvent);
 
-        var deserializedEvent = (SerializationTestEvent)_eventSerializer.Deserialize(serializedEvent, domainEvent.GetType().AssemblyQualifiedName!);
+        var deserializedEvent = (SerializationTestEvent)_eventSerializer.Deserialize(serializedEvent, domainEvent.GetType().AssemblyQualifiedName!)!;
 
         // Assert
         deserializedEvent.AggregateRootId

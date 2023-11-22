@@ -23,9 +23,7 @@ public class Repository<TAggregateRoot, TAggregateRootId>
     {
         var eventStream = await _eventStore.GetEventStreamAsync(aggregateRootId, Constants.InitialVersion, cancellationToken);
         if (!eventStream.Any())
-        {
             return default;
-        }
 
         var aggregateRoot = new TAggregateRoot();
         var aggregateRootBehavior = CastToBehavior(aggregateRoot);
@@ -51,9 +49,7 @@ public class Repository<TAggregateRoot, TAggregateRootId>
 
         var changesToSave = aggregateRootBehavior.GetUncommittedChanges();
         if (!changesToSave.Any())
-        {
             return Array.Empty<DomainEvent>();
-        }
 
         aggregateRootBehavior.CommitChanges();
 
@@ -65,9 +61,7 @@ public class Repository<TAggregateRoot, TAggregateRootId>
     private static IAggregateRootBehavior CastToBehavior(TAggregateRoot aggregateRoot)
     {
         if (aggregateRoot is not IAggregateRootBehavior aggregateRootBehavior)
-        {
             throw new InvalidCastException("Aggregate root must implement AggregateRoot abstract class.");
-        }
 
         return aggregateRootBehavior;
     }

@@ -71,7 +71,7 @@ public abstract class AggregateRoot<TId>
 
         var lastEvent = orderedEventStream.Last();
 
-        Id = DeserializeIdFromString(lastEvent.AggregateRootId!);
+        Id = DeserializeIdFromString(lastEvent.AggregateRootId);
         Version = lastEvent.Version;
     }
 
@@ -139,7 +139,7 @@ public abstract class AggregateRoot<TId>
     {
         var eventListenerMethod = _eventListenerMethods.SingleOrDefault(methodInfo => methodInfo.GetParameters().Single().ParameterType == domainEvent.GetType());
         if (eventListenerMethod is null)
-            throw new MissingMethodException($"Event listener method was not found for the {domainEvent.GetType().Name} event.");
+            throw new MissingMethodException($"Aggregate root event listener method was not found for the {domainEvent.GetType().Name} event.");
 
         eventListenerMethod.Invoke(this, new object[] { domainEvent });
     }

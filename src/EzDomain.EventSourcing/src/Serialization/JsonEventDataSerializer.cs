@@ -6,7 +6,7 @@ namespace EzDomain.EventSourcing.Serialization;
 /// JSON serializer for domain events.
 /// </summary>
 public sealed class JsonEventDataSerializer
-    : IEventDataSerializer<string>
+    : IDomainEventDataSerializer<string>
 {
     /// <summary>
     /// Serializes domain event to JSON string.
@@ -21,10 +21,10 @@ public sealed class JsonEventDataSerializer
     }
 
     /// <summary>
-    /// Deserializes domain event from JSON string.
+    /// Deserializes a domain event from JSON string.
     /// </summary>
     /// <param name="jsonString">JSON string.</param>
-    /// <param name="typeName">Full name of domain event type.</param>
+    /// <param name="typeName">Full name of a domain event type.</param>
     /// <returns>Domain event object.</returns>
     /// <exception cref="InvalidOperationException">Thrown if type of domain event does not exist.</exception>
     public DomainEvent? Deserialize(string jsonString, string typeName)

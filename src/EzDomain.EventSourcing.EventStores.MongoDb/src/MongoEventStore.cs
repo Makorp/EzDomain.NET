@@ -4,45 +4,46 @@ using Microsoft.Extensions.Logging;
 using MongoDB.Bson.Serialization.Attributes;
 using MongoDB.Driver;
 
-namespace EzDomain.EventSourcing.EventStores.MongoDbEventStore;
+namespace EzDomain.EventSourcing.EventStores.MongoDb;
 
-public sealed class MongoDbStore
+public sealed class MongoEventStore
     : EventStore
 {
     private readonly MongoClient _mongoClient;
+    private readonly MongoEventStoreSettings _mongoSettings;
 
-    public MongoDbStore(ILogger logger, MongoClient mongoClient)
+    public MongoEventStore(ILogger logger, MongoClient mongoClient, MongoEventStoreSettings mongoSettings)
         : base(logger)
     {
         _mongoClient = mongoClient;
+        _mongoSettings = mongoSettings;
     }
 
     public override async Task<IReadOnlyCollection<DomainEvent>> GetEventStreamAsync(string aggregateRootId, long fromVersion, CancellationToken cancellationToken = default) =>
         await _mongoClient
-            .GetDatabase("EventStore")
-            .GetCollection<DomainEvent>("Events")
+            .GetDatabase(_mongoSettings.DatabaseName)
+            .GetCollection<DomainEvent>(_mongoSettings.StreamName)
             .Find(domainEvent =>
                 domainEvent.AggregateRootId == aggregateRootId &&
                 domainEvent.Version >= fromVersion)
             .ToListAsync(cancellationToken);
 
-    protected override async Task AppendToStreamInternalAsync(IReadOnlyCollection<DomainEvent> events,
-        CancellationToken cancellationToken = default)
+    protected override async Task AppendToStreamInternalAsync(IReadOnlyCollection<DomainEvent> events, CancellationToken cancellationToken = default)
     {
         if (events is null)
             throw new ArgumentNullException(nameof(events));
 
         var eventSchemas = events.Select(domainEvent => new Schema
         (
-            domainEvent.AggregateRootId!,
+            domainEvent.AggregateRootId,
             domainEvent.Version,
             domainEvent.GetType().FullName!,
             domainEvent
         ));
 
         await _mongoClient
-            .GetDatabase("EventStore")
-            .GetCollection<Schema>("Events")
+            .GetDatabase(_mongoSettings.DatabaseName)
+            .GetCollection<Schema>(_mongoSettings.StreamName)
             .InsertManyAsync(eventSchemas, cancellationToken: cancellationToken);
     }
 
@@ -51,7 +52,7 @@ public sealed class MongoDbStore
         throw new NotImplementedException();
     }
 
-    private sealed class Schema
+    private sealed record Schema
     {
         [BsonConstructor]
         public Schema(string streamId, long streamVersion, string eventType, DomainEvent eventData)

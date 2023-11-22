@@ -18,7 +18,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\EzDomain.EventSourcing\EzDomain.EventSourcing.csproj" />
+      <ProjectReference Include="..\..\src\EzDomain.EventSourcing.csproj" />
     </ItemGroup>
 
     <ItemGroup>
