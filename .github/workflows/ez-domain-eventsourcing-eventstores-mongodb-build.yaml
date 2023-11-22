@@ -4,15 +4,18 @@ on:
   workflow_dispatch:
     branches: [ "**" ]
     paths:
+      - 'src/EzDomain.EventSourcing/src/**'
       - 'src/EzDomain.EventSourcing.EventStores.MongoDb/src/**'
   push:
     branches: [ "**" ]
     paths:
+      - 'src/EzDomain.EventSourcing/src/**'
       - 'src/EzDomain.EventSourcing.EventStores.MongoDb/src/**'
       
   pull_request:
     branches: [ "**" ]
     paths:
+      - 'src/EzDomain.EventSourcing/src/**'
       - 'src/EzDomain.EventSourcing.EventStores.MongoDb/src/**'
 
 defaults:
