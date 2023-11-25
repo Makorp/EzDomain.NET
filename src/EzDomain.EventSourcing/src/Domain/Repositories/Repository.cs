@@ -4,9 +4,9 @@ using EzDomain.EventSourcing.Exceptions;
 
 namespace EzDomain.EventSourcing.Domain.Repositories;
 
-public class Repository<TAggregateRoot, TAggregateRootId>
+public sealed class Repository<TAggregateRoot, TAggregateRootId>
     : IRepository<TAggregateRoot, TAggregateRootId>
-    where TAggregateRoot : class, IAggregateRoot<TAggregateRootId>, new()
+    where TAggregateRoot : AggregateRoot<TAggregateRootId>, IAggregateRoot<TAggregateRootId>, new()
     where TAggregateRootId : class, IAggregateRootId
 {
     private readonly IEventStore _eventStore;
@@ -14,7 +14,7 @@ public class Repository<TAggregateRoot, TAggregateRootId>
     public Repository(IEventStore eventStore) => _eventStore = eventStore;
 
     /// <summary>
-    /// Gets aggregate root with its correct state by aggregate root identifier.
+    /// Gets an aggregate root with its correct state by the aggregate root identifier.
     /// </summary>
     /// <param name="aggregateRootId">Aggregate root identifier.</param>
     /// <param name="cancellationToken">Cancellation token.</param>
@@ -26,26 +26,26 @@ public class Repository<TAggregateRoot, TAggregateRootId>
             return default;
 
         var aggregateRoot = new TAggregateRoot();
-        var aggregateRootBehavior = CastToBehavior(aggregateRoot);
+        var aggregateRootBehavior = aggregateRoot.ToAggregateRootBehavior();
 
-        aggregateRootBehavior.RestoreFromStream(eventStream);
+        aggregateRootBehavior.RestoreFromEventStream(eventStream);
 
         return aggregateRoot;
     }
 
     /// <summary>
-    /// Saves state of aggregate root in event store and returns newly stored domain events.
+    /// Saves state of an aggregate root in an event store and returns newly created domain events.
     /// </summary>
     /// <param name="aggregateRoot">Aggregate root.</param>
     /// <param name="cancellationToken">Cancellation token.</param>
-    /// <returns>Collection of newly stored domain events.</returns>
+    /// <returns>Collection of newly created domain events.</returns>
     /// <exception cref="AggregateRootNullException">Thrown if aggregate root is null.</exception>
     public async Task<IReadOnlyCollection<DomainEvent>> SaveAsync(TAggregateRoot aggregateRoot, CancellationToken cancellationToken = default)
     {
         if (aggregateRoot is null)
             throw new AggregateRootNullException(nameof(aggregateRoot));
 
-        var aggregateRootBehavior = CastToBehavior(aggregateRoot);
+        var aggregateRootBehavior = aggregateRoot.ToAggregateRootBehavior();
 
         var changesToSave = aggregateRootBehavior.GetUncommittedChanges();
         if (!changesToSave.Any())
@@ -56,13 +56,5 @@ public class Repository<TAggregateRoot, TAggregateRootId>
         await _eventStore.AppendToStreamAsync(changesToSave, cancellationToken);
 
         return changesToSave;
-    }
-
-    private static IAggregateRootBehavior CastToBehavior(TAggregateRoot aggregateRoot)
-    {
-        if (aggregateRoot is not IAggregateRootBehavior aggregateRootBehavior)
-            throw new InvalidCastException("Aggregate root must implement AggregateRoot abstract class.");
-
-        return aggregateRootBehavior;
     }
 }

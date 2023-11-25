@@ -132,7 +132,7 @@ public sealed class RepositoryTests
 
         var aggregateRoot = new TestAggregateRoot();
 
-        ((IAggregateRootBehavior)aggregateRoot).RestoreFromStream(_domainEvents.ToList());
+        ((IAggregateRootBehavior)aggregateRoot).RestoreFromEventStream(_domainEvents.ToList());
 
         // Act
         var aggregateRootChanges = await repository.SaveAsync(aggregateRoot);

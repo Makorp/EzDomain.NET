@@ -8,9 +8,9 @@ public abstract class SerializerTest<TEventDataSerializationType>
     private const string StringProp1Value = "123";
     private const string StringProp2Value = "456";
 
-    private readonly IDomainEventDataSerializer<TEventDataSerializationType> _eventSerializer;
+    private readonly IDomainEventSerializer<TEventDataSerializationType> _eventSerializer;
 
-    protected SerializerTest(IDomainEventDataSerializer<TEventDataSerializationType> eventSerializer)
+    protected SerializerTest(IDomainEventSerializer<TEventDataSerializationType> eventSerializer)
     {
         _eventSerializer = eventSerializer;
     }

@@ -2,7 +2,7 @@ namespace EzDomain.EventSourcing.Domain.Model;
 
 internal interface IAggregateRootBehavior
 {
-    void RestoreFromStream(IReadOnlyCollection<DomainEvent> eventStream);
+    void RestoreFromEventStream(IReadOnlyCollection<DomainEvent> eventStream);
 
     IReadOnlyCollection<DomainEvent> GetUncommittedChanges();
 
