@@ -24,8 +24,8 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\EzDomain.EventSourcing.EventStores.Azure.TableStorage\EzDomain.EventSourcing.EventStores.Azure.TableStorage.csproj" />
-      <ProjectReference Include="..\EzDomain.EventSourcing\EzDomain.EventSourcing.csproj" />
+      <ProjectReference Include="..\..\..\EzDomain.EventSourcing\src\EzDomain.EventSourcing.csproj" />
+      <ProjectReference Include="..\..\src\EzDomain.EventSourcing.EventStores.Azure.TableStorage.csproj" />
     </ItemGroup>
 
 </Project>

@@ -6,7 +6,7 @@ using EzDomain.EventSourcing.Serialization;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 
-namespace EzDomain.EventSourcing.EventStores.Azure.TableStorage.Tests.IntegrationTests;
+namespace EzDomain.EventSourcing.EventStores.Azure.TableStorage.Tests.IntTests;
 
 [TestFixture]
 internal sealed class TableStorageStoreTests
