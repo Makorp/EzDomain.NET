@@ -1,0 +1,44 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EzDomain.EventSourcing.EventStores.Azure.TableStorage", "src\EzDomain.EventSourcing.EventStores.Azure.TableStorage.csproj", "{12BDBEC0-A541-4433-99B7-10322F8BB886}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{C322DD22-138C-4ABA-AF3F-BE9C4D72F0AD}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{F87CE866-8F20-4200-B75D-8FBC08B9447C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EzDomain.EventSourcing.EventStores.Azure.TableStorage.Tests.UnitTests", "tests\EzDomain.EventSourcing.EventStores.Azure.TableStorage.Tests.UnitTests\EzDomain.EventSourcing.EventStores.Azure.TableStorage.Tests.UnitTests.csproj", "{544EDA15-77DA-4809-93CB-B73C730A7355}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EzDomain.EventSourcing", "..\EzDomain.EventSourcing\src\EzDomain.EventSourcing.csproj", "{1BB82CFA-32CE-4326-859F-CECED7166F68}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EzDomain.EventSourcing.EventStores.Azure.TableStorage.Tests.IntTests", "tests\EzDomain.EventSourcing.EventStores.Azure.TableStorage.Tests.IntTests\EzDomain.EventSourcing.EventStores.Azure.TableStorage.Tests.IntTests.csproj", "{B6F7482C-8A5B-46D9-93C0-A9B852925551}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{12BDBEC0-A541-4433-99B7-10322F8BB886}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{12BDBEC0-A541-4433-99B7-10322F8BB886}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{12BDBEC0-A541-4433-99B7-10322F8BB886}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{12BDBEC0-A541-4433-99B7-10322F8BB886}.Release|Any CPU.Build.0 = Release|Any CPU
+		{544EDA15-77DA-4809-93CB-B73C730A7355}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{544EDA15-77DA-4809-93CB-B73C730A7355}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{544EDA15-77DA-4809-93CB-B73C730A7355}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{544EDA15-77DA-4809-93CB-B73C730A7355}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1BB82CFA-32CE-4326-859F-CECED7166F68}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1BB82CFA-32CE-4326-859F-CECED7166F68}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1BB82CFA-32CE-4326-859F-CECED7166F68}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1BB82CFA-32CE-4326-859F-CECED7166F68}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B6F7482C-8A5B-46D9-93C0-A9B852925551}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B6F7482C-8A5B-46D9-93C0-A9B852925551}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B6F7482C-8A5B-46D9-93C0-A9B852925551}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B6F7482C-8A5B-46D9-93C0-A9B852925551}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{12BDBEC0-A541-4433-99B7-10322F8BB886} = {C322DD22-138C-4ABA-AF3F-BE9C4D72F0AD}
+		{544EDA15-77DA-4809-93CB-B73C730A7355} = {F87CE866-8F20-4200-B75D-8FBC08B9447C}
+		{1BB82CFA-32CE-4326-859F-CECED7166F68} = {C322DD22-138C-4ABA-AF3F-BE9C4D72F0AD}
+		{B6F7482C-8A5B-46D9-93C0-A9B852925551} = {F87CE866-8F20-4200-B75D-8FBC08B9447C}
+	EndGlobalSection
+EndGlobal

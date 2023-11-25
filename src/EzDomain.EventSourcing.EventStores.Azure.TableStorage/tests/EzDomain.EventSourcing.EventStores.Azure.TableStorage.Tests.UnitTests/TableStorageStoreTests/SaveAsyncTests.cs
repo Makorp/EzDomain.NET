@@ -13,7 +13,7 @@ public class SaveAsyncTests
     private const long ExistingAggregateRootVersion = 0;
 
     private readonly Mock<ILogger> _mockLogger = new();
-    private readonly Mock<IEventDataSerializer<string>> _mockEventDataSerializer = new();
+    private readonly Mock<IDomainEventDataSerializer<string>> _mockEventDataSerializer = new();
     private readonly Mock<TableServiceClient> _mockTableServiceClient = new();
     private readonly Mock<TableClient> _mockTableClient = new();
 
