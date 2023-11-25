@@ -51,8 +51,7 @@ public sealed class AggregateRootTests
         var aggregateRootBehavior = (IAggregateRootBehavior)aggregateRoot;
 
         // Act
-        // TODO: Consider method change name to RestoreFromEventsStream
-        aggregateRootBehavior.RestoreFromStream(eventsStream);
+        aggregateRootBehavior.RestoreFromEventStream(eventsStream);
 
         // Assert
         aggregateRoot.Id.ToString()
@@ -71,39 +70,18 @@ public sealed class AggregateRootTests
     }
 
     [Test]
-    public void RestoreFromStream_ThrowsEventStreamNullException_WhenDomainEventStreamIsProvidedIsNull()
-    {
-        // Arrange
-        var aggregateRoot = new TestAggregateRoot();
-
-        // Act
-        var act = () => ((IAggregateRootBehavior)aggregateRoot).RestoreFromStream(null);
-
-        // Assert
-        act.Should()
-            .Throw<EventStreamNullException>();
-
-        aggregateRoot.Id
-            .Should()
-            .BeNull();
-
-        aggregateRoot.Version
-            .Should()
-            .Be(Constants.InitialVersion);
-    }
-
-    [Test]
     public void RestoreFromStream_ThrowsEmptyEventStreamException_WhenDomainEventStreamContainsNoEvents()
     {
         // Arrange
         var aggregateRoot = new TestAggregateRoot();
 
         // Act
-        var act = () => ((IAggregateRootBehavior)aggregateRoot).RestoreFromStream(Array.Empty<DomainEvent>());
+        var act = () => ((IAggregateRootBehavior)aggregateRoot).RestoreFromEventStream(Array.Empty<DomainEvent>());
 
         // Assert
-        act.Should()
-            .Throw<EmptyEventStreamException>();
+        act
+            .Should()
+            .Throw<EventStreamEmptyException>();
 
         aggregateRoot.Id
             .Should()
@@ -135,9 +113,9 @@ public sealed class AggregateRootTests
         aggregateRootBehavior.CommitChanges();
 
         // Assert
-        for (var i = 0; i < changesToSave.Length; i++)
+        foreach (var domainEvent in changesToSave)
         {
-            changesToSave[i].Version
+            domainEvent.Version
                 .Should()
                 .Be(expectedVersion);
         }
@@ -165,7 +143,8 @@ public sealed class AggregateRootTests
         var act = () => ((IAggregateRootBehavior)aggregateRoot).CommitChanges();
 
         // Assert
-        act.Should()
+        act
+            .Should()
             .Throw<AggregateRootIdException>();
 
         aggregateRoot.Version
@@ -186,7 +165,8 @@ public sealed class AggregateRootTests
         var act = () => aggregateRoot.ExecuteUnhandledBehavior();
             
         // Assert
-        act.Should()
+        act
+            .Should()
             .Throw<MissingMethodException>();
     }
 
@@ -202,7 +182,8 @@ public sealed class AggregateRootTests
         var act = () => aggregateRoot.SetId(serializedAggregateRootId);
             
         // Assert
-        act.Should()
+        act
+            .Should()
             .Throw<AggregateRootIdException>();
     }
 }

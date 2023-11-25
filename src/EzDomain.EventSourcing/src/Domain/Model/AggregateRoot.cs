@@ -29,9 +29,10 @@ public abstract class AggregateRoot<TId>
     /// </summary>
     /// <param name="id">Aggregate Root Identifier.</param>
     protected AggregateRoot(TId id)
-        : this() => Id = id;
+        : this()
+        => Id = id;
 
-    [SuppressMessage("ReSharper", "JoinNullCheckWithUsage", Justification = "Left with if statement for readability")]
+    [SuppressMessage("ReSharper", "JoinNullCheckWithUsage", Justification = "Left with if statement for readability.")]
     public TId Id
     {
         get => _id!;
@@ -53,15 +54,11 @@ public abstract class AggregateRoot<TId>
     /// Restores an aggregate root state from an event stream containing domain events.
     /// </summary>
     /// <param name="eventStream">An event stream containing domain events.</param>
-    /// <exception cref="EventStreamNullException">Thrown if an event stream is null.</exception>
-    /// <exception cref="EmptyEventStreamException">Thrown if an event stream is empty.</exception>
-    void IAggregateRootBehavior.RestoreFromStream(IReadOnlyCollection<DomainEvent> eventStream)
+    /// <exception cref="EventStreamEmptyException">Thrown if an event stream is empty.</exception>
+    void IAggregateRootBehavior.RestoreFromEventStream(IReadOnlyCollection<DomainEvent> eventStream)
     {
-        if (eventStream is null)
-            throw new EventStreamNullException(nameof(eventStream));
-
         if (!eventStream.Any())
-            throw new EmptyEventStreamException("Aggregate root events stream does not contain any domain events.");
+            throw new EventStreamEmptyException("Aggregate root events stream does not contain any domain events.");
 
         var orderedEventStream = eventStream
             .OrderBy(e => e.Version)
@@ -99,10 +96,12 @@ public abstract class AggregateRoot<TId>
         _changes.Clear();
     }
 
+    internal IAggregateRootBehavior ToAggregateRootBehavior() => this;
+
     /// <summary>
-    /// Applies new domain event to aggregate root.
+    /// Applies new domain event to the aggregate root.
     /// </summary>
-    /// <param name="domainEvent">Domain event</param>
+    /// <param name="domainEvent">Domain event.</param>
     /// <exception cref="EventNullException">Thrown if domain event is null.</exception>
     protected void ApplyChange(DomainEvent domainEvent)
     {
@@ -130,9 +129,7 @@ public abstract class AggregateRoot<TId>
         InvokeEventListenerMethod(domainEvent);
 
         if (isNew)
-        {
             _changes.Add(domainEvent);
-        }
     }
 
     private void InvokeEventListenerMethod(DomainEvent domainEvent)

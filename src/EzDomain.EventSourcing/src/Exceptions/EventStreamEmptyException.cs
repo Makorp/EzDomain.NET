@@ -2,10 +2,10 @@ namespace EzDomain.EventSourcing.Exceptions;
 
 [ExcludeFromCodeCoverage]
 [Serializable]
-public class EventStreamNullException
+public class EventStreamEmptyException
     : Exception
 {
-    public EventStreamNullException(string message)
+    public EventStreamEmptyException(string message)
         : base(message)
     {
     }

@@ -10,7 +10,8 @@ public abstract class EventStore
 {
     private readonly ILogger _logger;
 
-    protected EventStore(ILogger logger) => _logger = logger;
+    protected EventStore(ILogger logger)
+        => _logger = logger;
 
     public abstract Task<IReadOnlyCollection<DomainEvent>> GetEventStreamAsync(string streamId, long fromVersion, CancellationToken cancellationToken = default);
 
@@ -24,7 +25,7 @@ public abstract class EventStore
         {
             if (IsConcurrencyException(ex))
             {
-                var concurrencyException = new ConcurrencyException("A concurrency exception occured while saving event stream to the event store.", ex);
+                var concurrencyException = new ConcurrencyException("A concurrency exception occured in the event store while appending events to the event stream.", ex);
 
                 _logger.LogError(concurrencyException, concurrencyException.Message);
 
@@ -40,9 +41,9 @@ public abstract class EventStore
     protected abstract Task AppendToStreamInternalAsync(IReadOnlyCollection<DomainEvent> events, CancellationToken cancellationToken = default);
 
     /// <summary>
-    /// Checks if concurrency occured while saving domain events to event store.
+    /// Checks if concurrency occured while saving domain events to the event store.
     /// </summary>
-    /// <param name="ex">Exception that occured in event store.</param>
+    /// <param name="ex">Exception that occured in the event store.</param>
     /// <returns>Returns true if exception was caused by domain events concurrency.</returns>
     protected abstract bool IsConcurrencyException(Exception ex);
 }

@@ -7,7 +7,9 @@ internal sealed record TestAggregateRootId
 {
     private readonly string _value;
 
-    public TestAggregateRootId(string value) => _value = value;
+    public TestAggregateRootId(string value)
+        => _value = value;
 
-    public override string ToString() => _value;
+    public override string ToString()
+        => _value;
 }
