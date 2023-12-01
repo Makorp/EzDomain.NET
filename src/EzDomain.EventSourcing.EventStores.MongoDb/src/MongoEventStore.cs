@@ -1,6 +1,7 @@
 ﻿using EzDomain.EventSourcing.Domain.EventStores;
 using EzDomain.EventSourcing.Domain.Model;
 using Microsoft.Extensions.Logging;
+using MongoDB.Bson.Serialization;
 using MongoDB.Bson.Serialization.Attributes;
 using MongoDB.Driver;
 
@@ -9,67 +10,96 @@ namespace EzDomain.EventSourcing.EventStores.MongoDb;
 public sealed class MongoEventStore
     : EventStore
 {
-    private readonly MongoClient _mongoClient;
+    private readonly IMongoClient _mongoClient;
     private readonly MongoEventStoreSettings _mongoSettings;
 
-    public MongoEventStore(ILogger logger, MongoClient mongoClient, MongoEventStoreSettings mongoSettings)
+    static MongoEventStore()
+    {
+        if(BsonClassMap.IsClassMapRegistered(typeof(DomainEvent)))
+           return;
+
+        BsonClassMap.RegisterClassMap<DomainEvent>(classMap =>
+        {
+            classMap.SetIsRootClass(true);
+            classMap.AutoMap();
+            classMap.MapField("_version").SetElementName("Version");
+        });
+    }
+
+    public MongoEventStore(ILogger logger, IMongoClient mongoClient, MongoEventStoreSettings mongoSettings)
         : base(logger)
     {
         _mongoClient = mongoClient;
         _mongoSettings = mongoSettings;
     }
 
-    public override async Task<IReadOnlyCollection<DomainEvent>> GetEventStreamAsync(string aggregateRootId, long fromVersion, CancellationToken cancellationToken = default) =>
-        await _mongoClient
-            .GetDatabase(_mongoSettings.DatabaseName)
-            .GetCollection<DomainEvent>(_mongoSettings.StreamName)
-            .Find(domainEvent =>
-                domainEvent.AggregateRootId == aggregateRootId &&
-                domainEvent.Version >= fromVersion)
-            .ToListAsync(cancellationToken);
-
-    protected override async Task AppendToStreamInternalAsync(IReadOnlyCollection<DomainEvent> events, CancellationToken cancellationToken = default)
+    public override async Task<IReadOnlyCollection<DomainEvent>> GetEventStreamAsync(string streamId, long fromVersion, CancellationToken cancellationToken = default)
     {
-        if (events is null)
-            throw new ArgumentNullException(nameof(events));
+        var collection = _mongoClient
+            .GetDatabase(_mongoSettings.DatabaseName)
+            .GetCollection<DomainEventSchema>(_mongoSettings.CollectionName);
+    
+        var filtersBuilder = Builders<DomainEventSchema>.Filter;
+        
+        var filters = filtersBuilder.And(
+            filtersBuilder.Eq(x=> x.Id.StreamId, streamId),
+            filtersBuilder.Gte(x=> x.Id.StreamSequenceNumber, fromVersion)
+        );
 
-        var eventSchemas = events.Select(domainEvent => new Schema
-        (
-            domainEvent.AggregateRootId,
-            domainEvent.Version,
-            domainEvent.GetType().FullName!,
-            domainEvent
-        ));
+        var domainEvents = await collection.FindAsync<DomainEventSchema>(filters, cancellationToken: cancellationToken);
 
+        return domainEvents
+            .ToList(cancellationToken)
+            .Select(eventDocument => eventDocument.EventData)
+            .ToList();
+    }
+
+    protected override async Task AppendToStreamInternalAsync(IReadOnlyCollection<DomainEvent> domainEvents, CancellationToken cancellationToken = default)
+    {
+        
+        var eventSchemas = domainEvents.Select(domainEvent =>
+        {
+            var eventSchemaId = new DomainEventSchemaId(domainEvent.AggregateRootId, domainEvent.Version);
+            
+            return new DomainEventSchema(eventSchemaId, domainEvent);
+        });
+        
         await _mongoClient
             .GetDatabase(_mongoSettings.DatabaseName)
-            .GetCollection<Schema>(_mongoSettings.StreamName)
+            .GetCollection<DomainEventSchema>(_mongoSettings.CollectionName)
             .InsertManyAsync(eventSchemas, cancellationToken: cancellationToken);
     }
 
-    protected override bool IsConcurrencyException(Exception ex)
-    {
-        throw new NotImplementedException();
-    }
+    protected override bool IsConcurrencyException(Exception ex) =>
+        ex is MongoBulkWriteException<DomainEventSchema> mongoBulkWriteException &&
+        mongoBulkWriteException.WriteErrors.Any(writeError => writeError.Code == 11000);
 
-    private sealed record Schema
+    internal sealed record DomainEventSchema
     {
         [BsonConstructor]
-        public Schema(string streamId, long streamVersion, string eventType, DomainEvent eventData)
+        public DomainEventSchema(DomainEventSchemaId id, DomainEvent eventData)
+        {
+            Id = id;
+            EventData = eventData;
+        }
+
+        [BsonId]
+        public DomainEventSchemaId Id { get; }
+
+        public DomainEvent EventData { get; }
+    }
+
+    internal sealed record DomainEventSchemaId
+    {
+        [BsonConstructor]
+        public DomainEventSchemaId(string streamId, long streamSequenceNumber)
         {
             StreamId = streamId;
-            StreamVersion = streamVersion;
-
-            EventType = eventType;
-            EventData = eventData;
+            StreamSequenceNumber = streamSequenceNumber;
         }
 
         public string StreamId { get; set; }
 
-        public long StreamVersion { get; set; }
-
-        public string EventType { get; set; }
-
-        public DomainEvent EventData { get; set; }
+        public long StreamSequenceNumber { get; set; }
     }
 }

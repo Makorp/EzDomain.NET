@@ -7,12 +7,17 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\..\EventSourcing\EzDomain.EventSourcing\EzDomain.EventSourcing.csproj" />
       <ProjectReference Include="..\..\EzDomain.EventSourcing\src\EzDomain.EventSourcing.csproj" />
     </ItemGroup>
 
     <ItemGroup>
       <PackageReference Include="MongoDB.Driver" Version="2.22.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <internalsvisibleto Include="EzDomain.EventSourcing.EventStores.MongoDb.UnitTests" />
+        <internalsvisibleto Include="EzDomain.EventSourcing.EventStores.MongoDb.IntegrationTests" />
+        <internalsvisibleto Include="DynamicProxyGenAssembly2" />
     </ItemGroup>
 
 </Project>
