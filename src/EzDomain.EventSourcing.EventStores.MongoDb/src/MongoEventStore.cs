@@ -49,16 +49,13 @@ public sealed class MongoEventStore
         var domainEvents = await collection.FindAsync<DomainEventSchema>(filters, cancellationToken: cancellationToken);
 
         return domainEvents
-            .ToList()
+            .ToList(cancellationToken)
             .Select(eventDocument => eventDocument.EventData)
             .ToList();
     }
 
     protected override async Task AppendToStreamInternalAsync(IReadOnlyCollection<DomainEvent> domainEvents, CancellationToken cancellationToken = default)
     {
-        if (domainEvents is null)
-            throw new ArgumentNullException(nameof(domainEvents));
-
         var eventSchemas = domainEvents.Select(domainEvent => new DomainEventSchema
         {
             Id = new DomainEventSchemaId
@@ -79,7 +76,7 @@ public sealed class MongoEventStore
         ex is MongoBulkWriteException<DomainEventSchema> mongoBulkWriteException &&
         mongoBulkWriteException.WriteErrors.Any(writeError => writeError.Code == 11000);
 
-    private sealed class DomainEventSchema
+    internal sealed class DomainEventSchema
     {
         [BsonId]
         public DomainEventSchemaId Id { get; set; }
@@ -87,7 +84,7 @@ public sealed class MongoEventStore
         public DomainEvent EventData { get; set; }
     }
 
-    private sealed class DomainEventSchemaId
+    internal sealed class DomainEventSchemaId
     {
         public string StreamId { get; set; }
 

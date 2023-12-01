@@ -1,7 +1,4 @@
-﻿using EzDomain.EventSourcing.Domain.Model;
-using EzDomain.EventSourcing.EventStores.MongoDb.IntegrationTests.TestDoubles;
-using EzDomain.EventSourcing.Exceptions;
-using FluentAssertions;
+﻿using EzDomain.EventSourcing.Exceptions;
 
 namespace EzDomain.EventSourcing.EventStores.MongoDb.IntegrationTests.MongoEventStoreTests;
 

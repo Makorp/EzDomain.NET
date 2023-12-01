@@ -1,9 +1,5 @@
-﻿using EzDomain.EventSourcing.EventStores.MongoDb.IntegrationTests.TestDoubles;
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
-using MongoDB.Bson;
-using MongoDB.Driver;
-using Moq;
 
 namespace EzDomain.EventSourcing.EventStores.MongoDb.IntegrationTests.MongoEventStoreTests;
 
@@ -35,7 +31,7 @@ internal abstract class TestsBase
     public virtual void OneTimeSetUp() =>
         MongoClient
             .GetDatabase(MongoEventStoreSettings.DatabaseName)
-            .GetCollection<BsonDocument>(MongoEventStoreSettings.CollectionName);
+            .GetCollection<MongoEventStore.DomainEventSchema>(MongoEventStoreSettings.CollectionName);
 
     [OneTimeTearDown]
     public virtual void OneTimeTearDown() =>

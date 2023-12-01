@@ -1,8 +1,4 @@
-﻿using EzDomain.EventSourcing.Domain.Model;
-using EzDomain.EventSourcing.EventStores.MongoDb.IntegrationTests.TestDoubles;
-using FluentAssertions;
-
-namespace EzDomain.EventSourcing.EventStores.MongoDb.IntegrationTests.MongoEventStoreTests;
+﻿namespace EzDomain.EventSourcing.EventStores.MongoDb.IntegrationTests.MongoEventStoreTests;
 
 [TestFixture]
 internal sealed class E2ETests

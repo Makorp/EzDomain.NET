@@ -1,8 +1,4 @@
-﻿using EzDomain.EventSourcing.EventStores.MongoDb.IntegrationTests.TestDoubles;
-using FluentAssertions;
-using MongoDB.Bson;
-
-namespace EzDomain.EventSourcing.EventStores.MongoDb.IntegrationTests.MongoEventStoreTests;
+﻿namespace EzDomain.EventSourcing.EventStores.MongoDb.IntegrationTests.MongoEventStoreTests;
 
 [TestFixture]
 internal sealed class GetEventStreamAsyncTests

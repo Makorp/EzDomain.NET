@@ -1,6 +1,6 @@
 ﻿using System.Reflection;
 
-namespace EzDomain.EventSourcing.EventStores.MongoDb.IntegrationTests.TestDoubles;
+namespace EzDomain.EventSourcing.EventStores.MongoDb.UnitTests.TestDoubles;
 
 [Serializable]
 internal sealed record TestEvent
