@@ -56,14 +56,12 @@ public sealed class MongoEventStore
 
     protected override async Task AppendToStreamInternalAsync(IReadOnlyCollection<DomainEvent> domainEvents, CancellationToken cancellationToken = default)
     {
-        var eventSchemas = domainEvents.Select(domainEvent => new DomainEventSchema
+        
+        var eventSchemas = domainEvents.Select(domainEvent =>
         {
-            Id = new DomainEventSchemaId
-            {
-                StreamId = domainEvent.AggregateRootId,
-                StreamSequenceNumber = domainEvent.Version,
-            },
-            EventData = domainEvent
+            var eventSchemaId = new DomainEventSchemaId(domainEvent.AggregateRootId, domainEvent.Version);
+            
+            return new DomainEventSchema(eventSchemaId, domainEvent);
         });
         
         await _mongoClient
@@ -76,16 +74,30 @@ public sealed class MongoEventStore
         ex is MongoBulkWriteException<DomainEventSchema> mongoBulkWriteException &&
         mongoBulkWriteException.WriteErrors.Any(writeError => writeError.Code == 11000);
 
-    internal sealed class DomainEventSchema
+    internal sealed record DomainEventSchema
     {
-        [BsonId]
-        public DomainEventSchemaId Id { get; set; }
+        [BsonConstructor]
+        public DomainEventSchema(DomainEventSchemaId id, DomainEvent eventData)
+        {
+            Id = id;
+            EventData = eventData;
+        }
 
-        public DomainEvent EventData { get; set; }
+        [BsonId]
+        public DomainEventSchemaId Id { get; }
+
+        public DomainEvent EventData { get; }
     }
 
-    internal sealed class DomainEventSchemaId
+    internal sealed record DomainEventSchemaId
     {
+        [BsonConstructor]
+        public DomainEventSchemaId(string streamId, long streamSequenceNumber)
+        {
+            StreamId = streamId;
+            StreamSequenceNumber = streamSequenceNumber;
+        }
+
         public string StreamId { get; set; }
 
         public long StreamSequenceNumber { get; set; }

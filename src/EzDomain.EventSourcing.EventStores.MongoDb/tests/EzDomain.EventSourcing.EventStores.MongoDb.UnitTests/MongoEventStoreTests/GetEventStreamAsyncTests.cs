@@ -75,15 +75,8 @@ internal sealed class GetEventStreamAsyncTests
             true,
             DateTime.UtcNow);
 
-        var domainEventSchema = new MongoEventStore.DomainEventSchema
-        {
-            Id = new MongoEventStore.DomainEventSchemaId
-            {
-                StreamId = testEvent.AggregateRootId,
-                StreamSequenceNumber = testEvent.Version
-            },
-            EventData = testEvent
-        };
+        var domainEventSchemaId = new MongoEventStore.DomainEventSchemaId(testEvent.AggregateRootId, testEvent.Version);
+        var domainEventSchema = new MongoEventStore.DomainEventSchema(domainEventSchemaId, testEvent);
 
         _domainEvents.Add(domainEventSchema);
 
