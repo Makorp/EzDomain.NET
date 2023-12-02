@@ -55,4 +55,4 @@ jobs:
         dotnet-version: 7.0.x
     - name: Run unit tests
       run: |
-        dotnet test EzDomain.EventSourcing.EventStores.Sql/tests/EzDomain.EventSourcing.EventStores.Sql.UnitTests.csproj --configuration Release
+        dotnet test EzDomain.EventSourcing.EventStores.Sql/tests/EzDomain.EventSourcing.EventStores.Sql.UnitTests/EzDomain.EventSourcing.EventStores.Sql.UnitTests.csproj --configuration Release
