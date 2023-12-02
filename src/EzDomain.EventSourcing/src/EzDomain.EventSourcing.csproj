@@ -26,6 +26,7 @@
 
     <ItemGroup>
         <InternalsVisibleTo Include="EzDomain.EventSourcing.Tests.UnitTests" />
+        <InternalsVisibleTo Include="EzDomain.EventSourcing.EventStores.Sql.UnitTests" />
         <InternalsVisibleTo Include="EzDomain.EventSourcing.EventStores.Azure.TableStorage.Tests.UnitTests" />
         <InternalsVisibleTo Include="EzDomain.EventSourcing.EventStores.Azure.TableStorage.Tests.IntegrationTests" />
         <InternalsVisibleTo Include="DynamicProxyGenAssembly2" />

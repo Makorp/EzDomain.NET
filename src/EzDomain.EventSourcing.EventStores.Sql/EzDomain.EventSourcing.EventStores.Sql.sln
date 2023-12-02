@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EzDomain.EventSourcing.EventStores.Sql", "src\EzDomain.EventSourcing.EventStores.Sql.csproj", "{8ABD930F-1722-49D4-9BB6-9C8B69C05FF3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EzDomain.EventSourcing", "..\EzDomain.EventSourcing\src\EzDomain.EventSourcing.csproj", "{486DC5CD-B12B-4E06-B00A-0C9A332BBAF9}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{5F1FD278-1854-4AAC-83EB-004C94D6D96D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{94FE64BE-4BDF-4C14-8401-604A323AAB2B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EzDomain.EventSourcing.EventStores.Sql.UnitTests", "tests\EzDomain.EventSourcing.EventStores.Sql.UnitTests\EzDomain.EventSourcing.EventStores.Sql.UnitTests.csproj", "{63C3C1B3-9AA5-4C39-98A8-4CB429B6D69A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8ABD930F-1722-49D4-9BB6-9C8B69C05FF3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8ABD930F-1722-49D4-9BB6-9C8B69C05FF3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8ABD930F-1722-49D4-9BB6-9C8B69C05FF3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8ABD930F-1722-49D4-9BB6-9C8B69C05FF3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{486DC5CD-B12B-4E06-B00A-0C9A332BBAF9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{486DC5CD-B12B-4E06-B00A-0C9A332BBAF9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{486DC5CD-B12B-4E06-B00A-0C9A332BBAF9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{486DC5CD-B12B-4E06-B00A-0C9A332BBAF9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{63C3C1B3-9AA5-4C39-98A8-4CB429B6D69A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{63C3C1B3-9AA5-4C39-98A8-4CB429B6D69A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{63C3C1B3-9AA5-4C39-98A8-4CB429B6D69A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{63C3C1B3-9AA5-4C39-98A8-4CB429B6D69A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{486DC5CD-B12B-4E06-B00A-0C9A332BBAF9} = {5F1FD278-1854-4AAC-83EB-004C94D6D96D}
+		{8ABD930F-1722-49D4-9BB6-9C8B69C05FF3} = {5F1FD278-1854-4AAC-83EB-004C94D6D96D}
+		{63C3C1B3-9AA5-4C39-98A8-4CB429B6D69A} = {94FE64BE-4BDF-4C14-8401-604A323AAB2B}
+	EndGlobalSection
+EndGlobal
