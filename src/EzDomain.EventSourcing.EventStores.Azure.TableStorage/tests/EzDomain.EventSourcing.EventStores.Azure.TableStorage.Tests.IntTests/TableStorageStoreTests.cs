@@ -1,12 +1,12 @@
 using AutoFixture.NUnit3;
 using EzDomain.EventSourcing.Domain.Model;
-using EzDomain.EventSourcing.EventStores.Azure.TableStorage.Tests.IntegrationTests.TestDoubles;
+using EzDomain.EventSourcing.EventStores.Azure.TableStorage.Tests.IntTests.TestDoubles;
 using EzDomain.EventSourcing.Exceptions;
 using EzDomain.EventSourcing.Serialization;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 
-namespace EzDomain.EventSourcing.EventStores.Azure.TableStorage.Tests.IntTests;
+namespace EzDomain.EventSourcing.EventStores.Azure.TableStorage.Tests.IntegrationTests;
 
 [TestFixture]
 internal sealed class TableStorageStoreTests
@@ -31,7 +31,7 @@ internal sealed class TableStorageStoreTests
         // Arrange
         var eventStore = new TableStorageStore(
             _mockLogger.Object,
-            new JsonEventDataSerializer(),
+            new JsonDomainEventSerializer(),
             new TableServiceClient(_azureTableStorageConnectionString));
 
         var eventsToStore = new DomainEvent[]
@@ -59,7 +59,7 @@ internal sealed class TableStorageStoreTests
         // Arrange
         var eventStore = new TableStorageStore(
             _mockLogger.Object,
-            new JsonEventDataSerializer(),
+            new JsonDomainEventSerializer(),
             new TableServiceClient(_azureTableStorageConnectionString));
 
         var eventsToStore = new DomainEvent[]

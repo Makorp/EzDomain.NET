@@ -12,6 +12,7 @@ public interface ISqlScriptsLoader
 public sealed class SqlScriptsLoader
     : ISqlScriptsLoader
 {
+    // TODO: Consider adding caching.
     private static readonly IDictionary<string, string> Scripts = new Dictionary<string, string>();
 
     public SqlScriptsLoader(params Assembly[] assemblies)

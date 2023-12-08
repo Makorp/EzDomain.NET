@@ -19,21 +19,16 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\src\EzDomain.EventSourcing.EventStores.Sql.csproj" />
-      <ProjectReference Include="..\EzDomain.EventSourcing.EventStores.SqlServer\EzDomain.EventSourcing.EventStores.SqlServer.csproj" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <None Update="SqlScripts\CopiedScript.sql">
-        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      </None>
-    </ItemGroup>
-
-    <ItemGroup>
       <None Remove="SqlScripts\EmbeddedScript.sql" />
-      <EmbeddedResource Include="SqlScripts\EmbeddedScript.sql" LogicalName="EmbeddedScript.sql">
-        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      </EmbeddedResource>
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\..\..\EzDomain.EventSourcing.EventStores.Sql\src\EzDomain.EventSourcing.EventStores.Sql.csproj" />
+      <ProjectReference Include="..\..\src\EzDomain.EventSourcing.EventStores.SqlServer.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\..\..\EzDomain.EventSourcing.EventStores.Sql\src\EzDomain.EventSourcing.EventStores.Sql.csproj" />
     </ItemGroup>
 
 </Project>
