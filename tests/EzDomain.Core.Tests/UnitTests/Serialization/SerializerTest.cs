@@ -1,7 +1,7 @@
 using EzDomain.Core.Serialization;
-using EzDomain.Core.Tests.TestDoubles;
+using EzDomain.Core.Tests.UnitTests.TestDoubles;
 
-namespace EzDomain.Core.Tests.Serialization;
+namespace EzDomain.Core.Tests.UnitTests.Serialization;
 
 public abstract class SerializerTest<TEventDataSerializationType>
 {

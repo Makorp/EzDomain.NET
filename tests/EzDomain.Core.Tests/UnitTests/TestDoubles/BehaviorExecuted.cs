@@ -1,6 +1,6 @@
 using EzDomain.Core.Domain.Model;
 
-namespace EzDomain.Core.Tests.TestDoubles;
+namespace EzDomain.Core.Tests.UnitTests.TestDoubles;
 
 public sealed record BehaviorExecuted
     : DomainEvent

@@ -5,10 +5,10 @@ using EzDomain.Core.Domain.EventStores;
 using EzDomain.Core.Domain.Model;
 using EzDomain.Core.Domain.Repositories;
 using EzDomain.Core.Exceptions;
-using EzDomain.Core.Tests.TestDoubles;
+using EzDomain.Core.Tests.UnitTests.TestDoubles;
 using Moq;
 
-namespace EzDomain.Core.Tests.Domain.Repositories;
+namespace EzDomain.Core.Tests.UnitTests.Domain.Repositories;
 
 // TODO: Review and refactor this test class.
 [TestFixture]
