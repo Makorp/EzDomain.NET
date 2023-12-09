@@ -67,7 +67,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: [build-project]
     env:
-      MONGODB_CONNECTIONSTRING: ${{ secrets.MongoDb_ConnectionString }}
+      MONGODB_CONNECTIONSTRING: ${{ secrets.MONGODB_CONNECTIONSTRING }}
       RUN_INTEGRATION_TESTS: ${{ github.event.inputs.runIntegrationTests || 'false' }}
     steps:
     - uses: actions/checkout@v3
