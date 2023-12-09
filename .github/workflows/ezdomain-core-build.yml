@@ -46,4 +46,4 @@ jobs:
         dotnet-version: 7.0.x
     - name: Run unit tests
       run: |
-        dotnet test ./tests/EzDomain.Core.Tests/EzDomain.Core.Tests.csproj --configuration Release
+        dotnet test ../tests/EzDomain.Core.Tests/EzDomain.Core.Tests.csproj --configuration Release
