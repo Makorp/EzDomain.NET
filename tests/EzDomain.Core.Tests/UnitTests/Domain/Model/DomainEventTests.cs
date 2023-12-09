@@ -1,7 +1,7 @@
 using EzDomain.Core.Exceptions;
-using EzDomain.Core.Tests.TestDoubles;
+using EzDomain.Core.Tests.UnitTests.TestDoubles;
 
-namespace EzDomain.Core.Tests.Domain.Model;
+namespace EzDomain.Core.Tests.UnitTests.Domain.Model;
 
 [TestFixture]
 public sealed class DomainEventTests
