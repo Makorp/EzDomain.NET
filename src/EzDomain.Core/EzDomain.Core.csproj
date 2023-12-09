@@ -1,0 +1,35 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <LangVersion>11</LangVersion>
+        <TargetFramework>net7.0</TargetFramework>
+        <Authors>Maciej Korzeniewski</Authors>
+        <Description>
+            This library helps to implementat event sourcing when using DDD.
+        </Description>
+        <Title>EzDomain.NET - event sourcing core.</Title>
+        <Copyright>Maciej Korzeniewski</Copyright>
+        <PackageProjectUrl>https://www.nuget.org/</PackageProjectUrl>
+        <PackageLicenseUrl>https://github.com/Makorp/EzDomain.NET/blob/main/LICENSE</PackageLicenseUrl>
+        <RepositoryUrl>https://github.com/Makorp/EzDomain.NET</RepositoryUrl>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <InternalsVisibleTo Include="EzDomain.EventSourcing.EventStores.Azure.TableStorage.Tests.IntTests" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="7.0.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <InternalsVisibleTo Include="EzDomain.Core.Tests" />
+        <InternalsVisibleTo Include="EzDomain.EventStores.Sql.UnitTests" />
+        <InternalsVisibleTo Include="EzDomain.EventStores.Azure.TableStorage.Tests.UnitTests" />
+        <InternalsVisibleTo Include="EzDomain.EventStores.Azure.TableStorage.Tests.IntegrationTests" />
+        <InternalsVisibleTo Include="DynamicProxyGenAssembly2" />
+    </ItemGroup>
+
+</Project>
