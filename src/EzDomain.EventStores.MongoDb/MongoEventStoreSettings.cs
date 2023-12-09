@@ -1,3 +1,3 @@
-﻿namespace EzDomain.EventSourcing.EventStores.MongoDb;
+﻿namespace EzDomain.EventStores.MongoDb;
 
 public sealed record MongoEventStoreSettings(string DatabaseName, string CollectionName, IReadOnlyCollection<Type> KnownTypes);

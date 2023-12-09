@@ -1,7 +1,8 @@
-﻿using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Logging;
+﻿using EzDomain.EventStores.MongoDb.Tests.TestDoubles;
+using Microsoft.Extensions.Configuration;
+using MongoDB.Bson;
 
-namespace EzDomain.EventSourcing.EventStores.MongoDb.IntegrationTests.MongoEventStoreTests;
+namespace EzDomain.EventStores.MongoDb.Tests.IntegrationTests.MongoEventStoreTests;
 
 internal abstract class TestsBase
 {
@@ -15,13 +16,13 @@ internal abstract class TestsBase
 
     protected static readonly MongoClient MongoClient = new(GetConnectionString());
 
-    protected static readonly MongoEventStore SystemUnderTest;
+    protected static readonly MongoEventStore Sut;
 
     private static readonly Mock<ILogger> MockLogger = new();
 
     static TestsBase()
     {
-        SystemUnderTest = new MongoEventStore(
+        Sut = new MongoEventStore(
             MockLogger.Object,
             MongoClient,
             MongoEventStoreSettings);

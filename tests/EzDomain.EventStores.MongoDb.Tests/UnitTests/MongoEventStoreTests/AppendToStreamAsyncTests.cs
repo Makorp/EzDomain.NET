@@ -1,4 +1,6 @@
-﻿namespace EzDomain.EventSourcing.EventStores.MongoDb.UnitTests.MongoEventStoreTests;
+﻿using EzDomain.EventStores.MongoDb.Tests.TestDoubles;
+
+namespace EzDomain.EventStores.MongoDb.Tests.UnitTests.MongoEventStoreTests;
 
 [TestFixture]
 internal sealed class AppendToStreamAsyncTests
@@ -53,7 +55,7 @@ internal sealed class AppendToStreamAsyncTests
     }
 
 
-    [Test]
+    [Test, Category(TestCategory.Unit)]
     public async Task AppendToStreamAsync_AppendsDomainEventsToTheEventStream_WhenEventStreamContainsNewDomainEvents()
     {
         // Arrange

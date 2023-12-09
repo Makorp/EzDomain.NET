@@ -1,13 +1,14 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
         <TargetFramework>net7.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
-    </PropertyGroup>
+      <UserSecretsId>0347b9f3-3160-4672-ad9b-0b70d7f3d329</UserSecretsId>
+  </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\EzDomain.EventSourcing\src\EzDomain.EventSourcing.csproj" />
+      <ProjectReference Include="..\EzDomain.Core\EzDomain.Core.csproj" />
     </ItemGroup>
 
     <ItemGroup>
@@ -15,8 +16,7 @@
     </ItemGroup>
 
     <ItemGroup>
-        <internalsvisibleto Include="EzDomain.EventSourcing.EventStores.MongoDb.UnitTests" />
-        <internalsvisibleto Include="EzDomain.EventSourcing.EventStores.MongoDb.IntegrationTests" />
+        <internalsvisibleto Include="EzDomain.EventStores.MongoDb.Tests" />
         <internalsvisibleto Include="DynamicProxyGenAssembly2" />
     </ItemGroup>
 

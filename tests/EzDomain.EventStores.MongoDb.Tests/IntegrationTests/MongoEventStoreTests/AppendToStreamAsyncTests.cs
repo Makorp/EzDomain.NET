@@ -1,12 +1,13 @@
-﻿using EzDomain.EventSourcing.Exceptions;
+﻿using EzDomain.Core.Exceptions;
+using EzDomain.EventStores.MongoDb.Tests.TestDoubles;
 
-namespace EzDomain.EventSourcing.EventStores.MongoDb.IntegrationTests.MongoEventStoreTests;
+namespace EzDomain.EventStores.MongoDb.Tests.IntegrationTests.MongoEventStoreTests;
 
 [TestFixture]
 internal sealed class AppendToStreamAsyncTests
     : TestsBase
 {
-    [Test]
+    [Test, Category(TestCategory.Integration)]
     public Task AppendToStreamAsync_AppendsDomainEventsToTheEventStream_WhenEventStreamContainsNewDomainEvents()
     {
         // Arrange
@@ -24,7 +25,7 @@ internal sealed class AppendToStreamAsyncTests
             .NotThrowAsync();
     }
 
-    [Test]
+    [Test, Category(TestCategory.Integration)]
     public async Task AppendStreamAsync_ThrowsConcurrencyException_WhenDomainEventsWithTheSameVersionsExistInEventStream()
     {
         // Arrange
@@ -65,7 +66,7 @@ internal sealed class AppendToStreamAsyncTests
     {
         for (var i = 0; i < numberOfAppendCalls; i++)
         {
-            await SystemUnderTest.AppendToStreamAsync(
+            await Sut.AppendToStreamAsync(
                 domainEvents,
                 CancellationToken.None);
         }

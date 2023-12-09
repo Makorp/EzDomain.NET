@@ -1,5 +1,4 @@
-global using EzDomain.EventSourcing.Domain.Model;
-global using EzDomain.EventSourcing.EventStores.MongoDb.UnitTests.TestDoubles;
+global using EzDomain.Core.Domain.Model;
 global using FluentAssertions;
 global using Microsoft.Extensions.Logging;
 global using MongoDB.Driver;
