@@ -7,6 +7,7 @@ on:
         description: 'Run integration tests'     
         required: true
         default: 'false'
+        type: boolean
     branches: [ "**" ]
     paths:
       - 'src/EzDomain.Core/EzDomain.Core.sln'
