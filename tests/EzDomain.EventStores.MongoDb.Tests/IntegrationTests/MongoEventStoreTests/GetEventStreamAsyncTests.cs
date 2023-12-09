@@ -1,4 +1,7 @@
-﻿namespace EzDomain.EventSourcing.EventStores.MongoDb.IntegrationTests.MongoEventStoreTests;
+﻿using EzDomain.EventStores.MongoDb.Tests.TestDoubles;
+using MongoDB.Bson;
+
+namespace EzDomain.EventStores.MongoDb.Tests.IntegrationTests.MongoEventStoreTests;
 
 [TestFixture]
 internal sealed class GetEventStreamAsyncTests
@@ -47,11 +50,11 @@ internal sealed class GetEventStreamAsyncTests
             .InsertMany(documents);
     }
 
-    [Test]
+    [Test, Category(TestCategory.Integration)]
     public async Task GetEventStreamAsync_ReturnsDomainEvents_WhenStreamIdForExistingEventStreamIsProvided()
     {
         // Act
-        var eventStream = await SystemUnderTest.GetEventStreamAsync(
+        var eventStream = await Sut.GetEventStreamAsync(
             _streamIds.First(),
             0,
             CancellationToken.None);

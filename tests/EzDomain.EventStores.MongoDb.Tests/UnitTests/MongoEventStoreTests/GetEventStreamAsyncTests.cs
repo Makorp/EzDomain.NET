@@ -1,4 +1,6 @@
-﻿namespace EzDomain.EventSourcing.EventStores.MongoDb.UnitTests.MongoEventStoreTests;
+﻿using EzDomain.EventStores.MongoDb.Tests.TestDoubles;
+
+namespace EzDomain.EventStores.MongoDb.Tests.UnitTests.MongoEventStoreTests;
 
 [TestFixture]
 internal sealed class GetEventStreamAsyncTests
@@ -64,7 +66,7 @@ internal sealed class GetEventStreamAsyncTests
         _mockAsyncCursor.Invocations.Clear();
     }
 
-    [Test]
+    [Test, Category(TestCategory.Unit)]
     public async Task GetEventStreamAsync_ReturnsDomainEvents_WhenEventStreamContainsDomainEvents()
     {
         // Arrange

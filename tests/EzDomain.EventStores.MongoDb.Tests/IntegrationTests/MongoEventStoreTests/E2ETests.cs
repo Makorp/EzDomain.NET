@@ -1,10 +1,12 @@
-﻿namespace EzDomain.EventSourcing.EventStores.MongoDb.IntegrationTests.MongoEventStoreTests;
+﻿using EzDomain.EventStores.MongoDb.Tests.TestDoubles;
+
+namespace EzDomain.EventStores.MongoDb.Tests.IntegrationTests.MongoEventStoreTests;
 
 [TestFixture]
 internal sealed class E2ETests
     : TestsBase
 {
-    [Test]
+    [Test, Category(TestCategory.Integration)]
     public async Task GetEventStreamAsync_ReturnsDomainEvents_WhenAppendToStreamAsyncWasSuccessful()
     {
         // Arrange
@@ -27,11 +29,11 @@ internal sealed class E2ETests
         }
 
         // Act
-        await SystemUnderTest.AppendToStreamAsync(
+        await Sut.AppendToStreamAsync(
             domainEvents,
             CancellationToken.None);
 
-        var retrievedDomainEvents = await SystemUnderTest.GetEventStreamAsync(
+        var retrievedDomainEvents = await Sut.GetEventStreamAsync(
             aggregateRootId,
             0,
             CancellationToken.None);

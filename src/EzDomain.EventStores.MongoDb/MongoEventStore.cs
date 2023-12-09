@@ -1,11 +1,11 @@
-﻿using EzDomain.EventSourcing.Domain.EventStores;
-using EzDomain.EventSourcing.Domain.Model;
+﻿using EzDomain.Core.Domain.EventStores;
+using EzDomain.Core.Domain.Model;
 using Microsoft.Extensions.Logging;
 using MongoDB.Bson.Serialization;
 using MongoDB.Bson.Serialization.Attributes;
 using MongoDB.Driver;
 
-namespace EzDomain.EventSourcing.EventStores.MongoDb;
+namespace EzDomain.EventStores.MongoDb;
 
 public sealed class MongoEventStore
     : EventStore
@@ -15,8 +15,8 @@ public sealed class MongoEventStore
 
     static MongoEventStore()
     {
-        if(BsonClassMap.IsClassMapRegistered(typeof(DomainEvent)))
-           return;
+        if (BsonClassMap.IsClassMapRegistered(typeof(DomainEvent)))
+            return;
 
         BsonClassMap.RegisterClassMap<DomainEvent>(classMap =>
         {
