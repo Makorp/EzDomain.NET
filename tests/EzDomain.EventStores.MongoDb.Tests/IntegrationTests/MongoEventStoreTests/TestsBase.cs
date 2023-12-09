@@ -54,6 +54,7 @@ internal abstract class TestsBase
     private static string GetConnectionString()
     {
         var configuration = new ConfigurationBuilder()
+            .AddEnvironmentVariables()
             .AddUserSecrets(typeof(TestsBase).Assembly)
             .Build();
 
