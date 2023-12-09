@@ -12,6 +12,17 @@ public sealed class SqlServerConnectionFactory
     {
     }
 
-    public override IDbConnection CreateConnection() =>
-        new SqlConnection(ConnectionString);
+    public override IDbConnection CreateConnection()
+    {
+        var connection = new SqlConnection(ConnectionString);
+        if (!string.IsNullOrWhiteSpace(connection.Database))
+            return connection;
+
+        if (connection.State != ConnectionState.Open)
+            connection.Open();
+
+        connection.ChangeDatabase("EventStore");
+
+        return connection;
+    }
 }

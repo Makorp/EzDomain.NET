@@ -1,4 +1,5 @@
-﻿using EzDomain.EventSourcing.EventStores.Sql;
+﻿using System.Data.SqlClient;
+using EzDomain.EventSourcing.EventStores.Sql;
 using EzDomain.EventSourcing.Serialization;
 using Microsoft.Extensions.Logging;
 
@@ -12,8 +13,6 @@ public sealed class SqlServerEventStore
     {
     }
 
-    protected override bool IsConcurrencyException(Exception ex)
-    {
-        return true;
-    }
+    protected override bool IsConcurrencyException(Exception ex) =>
+        ex is SqlException { ErrorCode: 2627 };
 }

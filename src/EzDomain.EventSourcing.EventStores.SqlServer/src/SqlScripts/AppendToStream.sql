@@ -1,4 +1,4 @@
-INSERT INTO [dbo].[EventStreams]
+INSERT INTO [EventStreams].[EventStreams]
     ([StreamId]
     ,[StreamSequenceNumber]
     ,[EventType]

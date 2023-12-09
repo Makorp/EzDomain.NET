@@ -17,7 +17,7 @@ public sealed class GetByAggregateRootIdAsync
     };
 
     private readonly Mock<ILogger> _mockLogger = new();
-    private readonly Mock<IDomainEventDataSerializer<string>> _mockEventDataSerializer = new();
+    private readonly Mock<IDomainEventSerializer<string>> _mockEventDataSerializer = new();
     private readonly Mock<TableServiceClient> _mockTableServiceClient = new();
     private readonly Mock<TableClient> _mockTableClient = new();
 

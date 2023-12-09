@@ -11,12 +11,12 @@ namespace EzDomain.EventSourcing.EventStores.Azure.TableStorage;
 public sealed class TableStorageStore
     : EventStore
 {
-    private readonly IDomainEventDataSerializer<string> _serializer;
+    private readonly IDomainEventSerializer<string> _serializer;
     private readonly TableServiceClient _tableServiceClient;
 
     private readonly string _eventStoreName;
 
-    public TableStorageStore(ILogger logger, IDomainEventDataSerializer<string> serializer, TableServiceClient tableServiceClient, string eventStoreName = Constants.DefaultEventStoreName)
+    public TableStorageStore(ILogger logger, IDomainEventSerializer<string> serializer, TableServiceClient tableServiceClient, string eventStoreName = "EventStore")
         : base(logger)
     {
         _serializer = serializer;
