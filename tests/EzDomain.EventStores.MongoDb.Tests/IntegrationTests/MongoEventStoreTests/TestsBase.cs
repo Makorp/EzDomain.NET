@@ -58,6 +58,6 @@ internal abstract class TestsBase
             .AddUserSecrets(typeof(TestsBase).Assembly)
             .Build();
 
-        return configuration["MongoDb:ConnectionString"]!;
+        return configuration["MONGODB:CONNECTIONSTRING"]!;
     }
 }
