@@ -71,9 +71,9 @@ jobs:
       MONGODB_CONNECTIONSTRING: ${{ secrets.MONGODB_CONNECTIONSTRING }}
     steps:
     - name: Echo secret
-        run: echo ${{ secrets.MONGODB_CONNECTIONSTRING }}
+      run: echo ${{ secrets.MONGODB_CONNECTIONSTRING }}
     - name: Echo environment variable
-        run: echo ${{ env.MONGODB_CONNECTIONSTRING }}
+      run: echo ${{ env.MONGODB_CONNECTIONSTRING }}
     - uses: actions/checkout@v3
     - name: Setup .NET 7
       uses: actions/setup-dotnet@v3
