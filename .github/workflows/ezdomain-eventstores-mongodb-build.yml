@@ -70,17 +70,15 @@ jobs:
       RUN_INTEGRATION_TESTS: ${{ github.event.inputs.runIntegrationTests || 'false' }}
       MONGODB_CONNECTIONSTRING: ${{ secrets.MONGODB_CONNECTIONSTRING }}
     steps:
-    - name: Echo secret
-      run: echo ${{ secrets.MONGODB_CONNECTIONSTRING }}
-      working-directory: ./src
-    - name: Echo environment variable
-      run: echo ${{ env.MONGODB_CONNECTIONSTRING }}
-      working-directory: ./src
     - uses: actions/checkout@v3
     - name: Setup .NET 7
       uses: actions/setup-dotnet@v3
       with: 
         dotnet-version: 7.0.x
+    - name: Echo secret
+      run: echo ${{ secrets.MONGODB_CONNECTIONSTRING }}
+    - name: Echo environment variable
+      run: echo ${{ env.MONGODB_CONNECTIONSTRING }}
     - name: Run integration tests
       if: env.RUN_INTEGRATION_TESTS == 'true'
       run: |
