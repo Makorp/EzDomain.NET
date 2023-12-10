@@ -65,9 +65,15 @@ jobs:
 
   run-integration-tests:
     runs-on: ubuntu-latest
+    services:
+      mongodb:
+        image: mongo:latest
+        ports:
+          - 27017:27017
     needs: [build-project]
     env:
       RUN_INTEGRATION_TESTS: ${{ github.event.inputs.runIntegrationTests || 'false' }}
+      MONGODB__CONNECTIONSTRING: ${{ secrets.MONGODB__CONNECTIONSTRING }}
     steps:
     - uses: actions/checkout@v3
     - name: Setup .NET 7
