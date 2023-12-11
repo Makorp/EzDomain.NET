@@ -43,14 +43,16 @@ jobs:
         PATCH=${{ github.event.inputs.Patch }}
         if [[ "$MAJOR" == 'true' ]]; then
           dotnet version -f EzDomain.Core/EzDomain.Core.csproj major --no-commit
+          git push && git push --tags
         fi
         if [[ "$MINOR" == 'true' ]]; then
           dotnet version -f EzDomain.Core/EzDomain.Core.csproj minor --no-commit
+          git push && git push --tags
         fi
         if [[ "$PATCH" == 'true' ]]; then
           dotnet version -f EzDomain.Core/EzDomain.Core.csproj patch --no-commit
+          git push && git push --tags
         fi
-        git push && git push --tags
 
     - name: Build and pack
       run: |
