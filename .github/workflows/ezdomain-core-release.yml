@@ -44,7 +44,7 @@ jobs:
             if [[ "$MAJOR" == 'true' ]]; then
               ADDR[0]=$((ADDR[0] + 1))
             fi
-            if [[ $MINOR" == 'true' ]]; then
+            if [[ "$MINOR" == 'true' ]]; then
               ADDR[1]=$((ADDR[1] + 1))
             fi
             if [[ "$PATCH" == 'true' ]]; then
