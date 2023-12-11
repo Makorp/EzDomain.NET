@@ -54,7 +54,13 @@ jobs:
             echo $NEW_VERSION
             sed -i "s/<Version>[0-9]*\.[0-9]*\.[0-9]*<\/Version>/<Version>$NEW_VERSION<\/Version>/g" EzDomain.Core/EzDomain.Core.csproj
           fi
-
+    - name: Commit and push changes
+      run: |
+        git config --global user.name 'GitHub Actions'
+        git config --global user.email 'github-actions@github.com'
+        git add EzDomain.Core/EzDomain.Core.csproj
+        git commit -m "Update version"
+        git push
     - name: Build and pack
       run: |
         dotnet build --configuration Release
