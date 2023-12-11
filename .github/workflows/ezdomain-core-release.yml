@@ -40,7 +40,7 @@ jobs:
         MINOR=${{ github.event.inputs.Minor }}
         PATCH=${{ github.event.inputs.Patch }}
         if [[ "$MAJOR" == 'true' ]]; then
-          dotnet version -pf EzDomain.Core/EzDomain.Core.csproj major
+          dotnet version -f EzDomain.Core/EzDomain.Core.csproj major
         fi
         if [[ "$MINOR" == 'true' ]]; then
           dotnet version -f EzDomain.Core/EzDomain.Core.csproj minor
