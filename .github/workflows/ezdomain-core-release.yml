@@ -1,4 +1,4 @@
-name: Build EzDomain.Core solution
+name: Release EzDomain.Core solution (to NuGet)
 
 on:
   workflow_dispatch:
