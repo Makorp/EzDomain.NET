@@ -1,0 +1,61 @@
+name: Build EzDomain.Core solution
+
+on:
+  workflow_dispatch:
+    inputs:
+      Major:
+        description: 'Major version'
+        required: false
+      Minor:
+        description: 'Minor version'
+        required: false
+      Patch:
+        description: 'Patch version'
+        required: false
+
+defaults:
+  run:
+    working-directory: ./src
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Setup .NET 7
+      uses: actions/setup-dotnet@v3
+      with: 
+        dotnet-version: 7.0.x
+    - name: Update version in csproj
+      id: update_version
+      run: |
+        dotnet tool install --global dotnet-version-cli
+        MAJOR=${{ github.event.inputs.Major }}
+        MINOR=${{ github.event.inputs.Minor }}
+        PATCH=${{ github.event.inputs.Patch }}
+        if [[ -n "$MAJOR" ]]; then
+          dotnet version -p EzDomain.Core/EzDomain.Core.csproj -k Major -v $MAJOR
+        fi
+        if [[ -n "$MINOR" ]]; then
+          dotnet version -p EzDomain.Core/EzDomain.Core.csproj -k Minor -v $MINOR
+        fi
+        if [[ -n "$PATCH" ]]; then
+          dotnet version -p EzDomain.Core/EzDomain.Core.csproj -k Patch -v $PATCH
+        fi
+
+    - name: Build and pack
+      run: |
+        dotnet build --configuration Release
+        dotnet pack --configuration Release --output nupkgs
+
+    # - name: Push to NuGet
+    #   uses: brandedoutcast/publish-nuget@v2.5.2
+    #   with:
+    #     PROJECT_FILE_PATH: EzDomain.Core/EzDomain.Core.csproj
+    #     NUGET_KEY: ${{ secrets.NUGET_API_KEY }}
+    #     PACKAGE_NAME: YourPackageName
+    #   continue-on-error: true
+
+    - name: Rollback version if push failed
+      if: ${{ failure() }}
+      run: git checkout -- EzDomain.Core/EzDomain.Core.csproj

@@ -3,15 +3,19 @@
     <PropertyGroup>
         <LangVersion>11</LangVersion>
         <TargetFramework>net7.0</TargetFramework>
-        <Authors>Maciej Korzeniewski</Authors>
-        <Description>
-            This library helps to implementat event sourcing when using DDD.
-        </Description>
-        <Title>EzDomain.NET - event sourcing core.</Title>
-        <Copyright>Maciej Korzeniewski</Copyright>
+        <Version>1.0.0</Version>
+        <IsPackable>true</IsPackable>
+        <PackageId>EzDomain.Core</PackageId>
         <PackageProjectUrl>https://www.nuget.org/</PackageProjectUrl>
         <PackageLicenseUrl>https://github.com/Makorp/EzDomain.NET/blob/main/LICENSE</PackageLicenseUrl>
         <RepositoryUrl>https://github.com/Makorp/EzDomain.NET</RepositoryUrl>
+        <Title>EzDomain.NET - event sourcing core.</Title>
+        <Description>
+            This library assists in implementing event sourcing in Domain-Driven Design (DDD) approach.
+        </Description>
+        <Authors>Maciej Korzeniewski</Authors>
+        <Copyright>Maciej Korzeniewski</Copyright>
+        <Company>MaKorp</Company>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
     </PropertyGroup>
