@@ -46,12 +46,10 @@ jobs:
           git push && git push --tags
         fi
         if [[ "$MINOR" == 'true' ]]; then
-          dotnet version -f EzDomain.Core/EzDomain.Core.csproj minor --no-commit
-          git push && git push --tags
+
         fi
         if [[ "$PATCH" == 'true' ]]; then
-          dotnet version -f EzDomain.Core/EzDomain.Core.csproj patch --no-commit
-          git push && git push --tags
+
         fi
 
     - name: Build and pack
