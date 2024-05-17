@@ -3,7 +3,7 @@
     <PropertyGroup>
         <LangVersion>11</LangVersion>
         <TargetFramework>net7.0</TargetFramework>
-        <Version>7.0.0</Version>
+        <Version>7.0.1</Version>
         <IsPackable>true</IsPackable>
         <PackageId>EzDomain.Core</PackageId>
         <PackageProjectUrl>https://www.nuget.org/</PackageProjectUrl>
