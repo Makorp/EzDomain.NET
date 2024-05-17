@@ -60,6 +60,7 @@ jobs:
         fi
         git config --global user.name 'GitHub Actions'
         git config --global user.email 'github-actions@github.com'
+        git pull
         git add EzDomain.Core.csproj
         git commit -m "Assembly version update to: $NEW_VERSION"
         git push
