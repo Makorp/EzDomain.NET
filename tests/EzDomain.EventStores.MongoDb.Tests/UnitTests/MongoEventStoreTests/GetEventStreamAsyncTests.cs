@@ -16,8 +16,8 @@ internal sealed class GetEventStreamAsyncTests
     private readonly Mock<IAsyncCursor<MongoEventStore.DomainEventSchema>> _mockAsyncCursor = new();
 
     private readonly MongoEventStoreSettings _mongoEventStoreSettings = new(
-        $"dummyEventStore",
-        $"domainEvents",
+        "dummyEventStore",
+        "domainEvents",
         new[]
         {
             typeof(TestEvent)
