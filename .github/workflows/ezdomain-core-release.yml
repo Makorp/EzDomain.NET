@@ -4,19 +4,19 @@ on:
   workflow_dispatch:
     inputs:
       Major:
-        description: 'Bump Major version'
+        description: 'Increment Major version'
         required: true
-        default: 'false'
+        default: false
         type: boolean
       Minor:
-        description: 'Bump Minor version'
+        description: 'Increment Minor version'
         required: true
-        default: 'false'
+        default: false
         type: boolean
       Patch:
-        description: 'Bump Patch version'
+        description: 'Increment Patch version'
         required: true
-        default: 'false'
+        default: false
         type: boolean
 
 defaults:
