@@ -1,0 +1,29 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <LangVersion>11</LangVersion>
+        <TargetFramework>net7.0</TargetFramework>
+        <Authors>Maciej Korzeniewski</Authors>
+        <Description>
+            This library implements Azure Table Storage event store for EzDomain.NET event sourcing.
+        </Description>
+        <Title>EzDomain.NET - Azure Table Storage based event store.</Title>
+        <Copyright>MaKorp</Copyright>
+        <PackageProjectUrl>https://www.nuget.org/</PackageProjectUrl>
+        <PackageLicenseUrl>https://github.com/Makorp/EzDomain.NET/blob/main/LICENSE</PackageLicenseUrl>
+        <RepositoryUrl>https://github.com/Makorp/EzDomain.NET</RepositoryUrl>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\..\EzDomain.EventSourcing\src\EzDomain.EventSourcing.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Azure.Data.Tables" Version="12.8.0" />
+      <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="7.0.0" />
+      <PackageReference Include="System.Linq.Async" Version="6.0.1" />
+    </ItemGroup>
+
+</Project>

@@ -1,0 +1,41 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net7.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+
+        <IsPackable>false</IsPackable>
+        <IsTestProject>true</IsTestProject>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="FluentAssertions" Version="6.12.0" />
+        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.7.1"/>
+        <PackageReference Include="Moq" Version="4.18.4" />
+        <PackageReference Include="NUnit" Version="3.13.3"/>
+        <PackageReference Include="NUnit3TestAdapter" Version="4.4.2"/>
+        <PackageReference Include="NUnit.Analyzers" Version="3.6.1"/>
+        <PackageReference Include="coverlet.collector" Version="3.2.0"/>
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\..\src\EzDomain.EventSourcing.EventStores.Sql.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Remove="SqlScripts\TestEmbeddedScript.sql" />
+      <EmbeddedResource Include="SqlScripts\TestEmbeddedScript.sql" LogicalName="TestEmbeddedScript.sql">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </EmbeddedResource>
+      <None Remove="SqlScripts\TestEmbeddedScriptEmpty.sql" />
+      <EmbeddedResource Include="SqlScripts\TestEmbeddedScriptEmpty.sql" LogicalName="TestEmbeddedScriptEmpty.sql">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </EmbeddedResource>
+      <None Remove="SqlScripts\TestEmbeddedScriptWhiteSpace.sql" />
+      <EmbeddedResource Include="SqlScripts\TestEmbeddedScriptWhiteSpace.sql" LogicalName="TestEmbeddedScriptWhiteSpace.sql">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </EmbeddedResource>
+    </ItemGroup>
+
+</Project>
