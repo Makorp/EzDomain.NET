@@ -75,7 +75,7 @@ jobs:
 
     - name: Push to NuGet
       run: |
-        dotnet nuget push release/EzDomain.Core.${{ steps.update_version.outputs.new_version }}.nupkg --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json --skip-duplicate --verbosity normal
+        dotnet nuget push ./release/EzDomain.Core.${{ steps.update_version.outputs.new_version }}.nupkg --source https://api.nuget.org/v3/index.json
 
     - name: Rollback version if push failed
       if: ${{ failure() }}
