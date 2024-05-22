@@ -45,10 +45,11 @@ public abstract record DomainEvent
     /// Increments version of a domain event.
     /// </summary>
     /// <param name="aggregateRootVersion">Current aggregate root version.</param>
+    /// <param name="initialVersion">Initial version of an aggregate root.</param>
     /// <exception cref="AggregateRootVersionException">Thrown if provided aggregate root version is less than 0 (initial aggregate root version).</exception>
-    internal void IncrementVersion(ref long aggregateRootVersion)
+    internal void IncrementVersion(ref long aggregateRootVersion, long initialVersion = Constants.InitialVersion)
     {
-        if (aggregateRootVersion < Constants.InitialVersion)
+        if (aggregateRootVersion < initialVersion)
             throw new AggregateRootVersionException($"Aggregate root version must be greater or equal to {Constants.InitialVersion}, but was {aggregateRootVersion}.");
 
         _version = ++aggregateRootVersion;

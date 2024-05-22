@@ -1,14 +1,18 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFramework>net7.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
       <UserSecretsId>0347b9f3-3160-4672-ad9b-0b70d7f3d329</UserSecretsId>
+      <TargetFramework>net7.0</TargetFramework>
   </PropertyGroup>
 
-    <ItemGroup>
+    <ItemGroup Condition="'$(Configuration)'=='Debug'">
       <ProjectReference Include="..\EzDomain.Core\EzDomain.Core.csproj" />
+    </ItemGroup>
+
+    <ItemGroup Condition="'$(Configuration)'=='Release'">
+        <PackageReference Include="EzDomain.Core" Version="*" />
     </ItemGroup>
 
     <ItemGroup>

@@ -5,57 +5,79 @@ on:
     inputs:
       Major:
         description: 'Major version'
-        required: false
+        required: true
+        default: '8'
+        type: choice
+        options:
+          - '7'
+          - '8'
       Minor:
-        description: 'Minor version'
-        required: false
+        description: 'Increment Minor version'
+        required: true
+        default: false
+        type: boolean
       Patch:
-        description: 'Patch version'
-        required: false
+        description: 'Increment Patch version'
+        required: true
+        default: false
+        type: boolean
 
 defaults:
   run:
-    working-directory: ./src
+    working-directory: ./src/EzDomain.Core
 
 jobs:
   build-and-push:
     runs-on: ubuntu-latest
+    environment: release
     steps:
     - uses: actions/checkout@v3
-    - name: Setup .NET 7
+    - name: Setup .NET
       uses: actions/setup-dotnet@v3
       with: 
         dotnet-version: 7.0.x
     - name: Update version in csproj
       id: update_version
       run: |
-        dotnet tool install --global dotnet-version-cli
         MAJOR=${{ github.event.inputs.Major }}
         MINOR=${{ github.event.inputs.Minor }}
         PATCH=${{ github.event.inputs.Patch }}
-        if [[ -n "$MAJOR" ]]; then
-          dotnet version -p EzDomain.Core/EzDomain.Core.csproj -k Major -v $MAJOR
-        fi
-        if [[ -n "$MINOR" ]]; then
-          dotnet version -p EzDomain.Core/EzDomain.Core.csproj -k Minor -v $MINOR
-        fi
-        if [[ -n "$PATCH" ]]; then
-          dotnet version -p EzDomain.Core/EzDomain.Core.csproj -k Patch -v $PATCH
-        fi
 
+        VERSION=$(grep -oP '(?<=<Version>).*?(?=</Version>)' EzDomain.Core.csproj)
+        IFS='.' read -ra ADDR <<< "$VERSION"
+        if [[ "ADDR[0]" != $MAJOR ]]; then
+          ADDR[0]=$MAJOR
+          ADDR[1]=0
+          ADDR[2]=0
+        fi
+        if [[ "$MINOR" == 'true' ]]; then
+          ADDR[1]=$((ADDR[1] + 1))
+          ADDR[2]=0
+        fi
+        if [[ "$PATCH" == 'true' ]]; then
+          ADDR[2]=$((ADDR[2] + 1))
+        fi
+        NEW_VERSION="${ADDR[0]}.${ADDR[1]}.${ADDR[2]}"
+        echo "Old assembly version:" $VERSION
+        echo "New assembly version:" $NEW_VERSION
+        sed -i "s/<Version>[0-9]*\.[0-9]*\.[0-9]*<\/Version>/<Version>$NEW_VERSION<\/Version>/g" EzDomain.Core.csproj
+        git config --global user.name 'GitHub Actions'
+        git config --global user.email 'github-actions@github.com'
+        git pull
+        git add EzDomain.Core.csproj
+        git commit --allow-empty -m "Assembly version update to: $NEW_VERSION"
+        git push
+
+        echo "::set-output name=new_version::$NEW_VERSION"
     - name: Build and pack
       run: |
         dotnet build --configuration Release
-        dotnet pack --configuration Release --output nupkgs
+        dotnet pack --configuration Release --output release
 
-    # - name: Push to NuGet
-    #   uses: brandedoutcast/publish-nuget@v2.5.2
-    #   with:
-    #     PROJECT_FILE_PATH: EzDomain.Core/EzDomain.Core.csproj
-    #     NUGET_KEY: ${{ secrets.NUGET_API_KEY }}
-    #     PACKAGE_NAME: YourPackageName
-    #   continue-on-error: true
+    - name: Push to NuGet
+      run: |
+        dotnet nuget push ./release/EzDomain.Core.${{ steps.update_version.outputs.new_version }}.nupkg --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
 
     - name: Rollback version if push failed
       if: ${{ failure() }}
-      run: git checkout -- EzDomain.Core/EzDomain.Core.csproj
+      run: git checkout -- EzDomain.Core.csproj

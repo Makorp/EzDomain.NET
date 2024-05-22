@@ -74,6 +74,7 @@ public sealed class MongoEventStore
         ex is MongoBulkWriteException<DomainEventSchema> mongoBulkWriteException &&
         mongoBulkWriteException.WriteErrors.Any(writeError => writeError.Code == 11000);
 
+    // TODO: After migration to .NET 8 use [method: BsonConstructor] attribute on the level of the record constructor.
     internal sealed record DomainEventSchema
     {
         [BsonConstructor]
@@ -89,6 +90,7 @@ public sealed class MongoEventStore
         public DomainEvent EventData { get; }
     }
 
+    // TODO: After migration to .NET 8 use [method: BsonConstructor] attribute on the level of the record constructor.
     internal sealed record DomainEventSchemaId
     {
         [BsonConstructor]

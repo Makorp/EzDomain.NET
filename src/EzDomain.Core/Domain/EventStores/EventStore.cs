@@ -10,8 +10,8 @@ public abstract class EventStore
 {
     private readonly ILogger _logger;
 
-    protected EventStore(ILogger logger)
-        => _logger = logger;
+    protected EventStore(ILogger logger) =>
+        _logger = logger;
 
     public abstract Task<IReadOnlyCollection<DomainEvent>> GetEventStreamAsync(string streamId, long fromVersion, CancellationToken cancellationToken = default);
 
