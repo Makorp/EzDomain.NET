@@ -2,6 +2,7 @@ name: Release EzDomain.Core solution (to NuGet)
 
 on:
   workflow_dispatch:
+    branches: [ release ]
     inputs:
       Major:
         description: 'Major version'
