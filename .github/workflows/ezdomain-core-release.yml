@@ -64,7 +64,7 @@ jobs:
         git config --global user.email 'github-actions@github.com'
         git pull
         git add EzDomain.Core.csproj
-        git commit -m "Assembly version update to: $NEW_VERSION"
+        git commit --allow-empty -m "Assembly version update to: $NEW_VERSION"
         git push
 
         echo "::set-output name=new_version::$NEW_VERSION"
