@@ -72,12 +72,10 @@ jobs:
       run: |
         dotnet build --configuration Release
         dotnet pack --configuration Release --output release
-      continue-on-error: true
 
     - name: Push to NuGet
       run: |
-        dotnet nuget push release/EzDomain.Core.{{ steps.update_version.outputs.new_version }}.nupkg --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json --skip-duplicate --verbosity normal
-      continue-on-error: true
+        dotnet nuget push release/EzDomain.Core.${{ steps.update_version.outputs.new_version }}.nupkg --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json --skip-duplicate --verbosity normal
 
     - name: Rollback version if push failed
       if: ${{ failure() }}
