@@ -1,9 +1,14 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <LangVersion>11</LangVersion>
+        <LangVersion>12</LangVersion>
         <TargetFramework>net7.0</TargetFramework>
         <Version>7.0.0</Version>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <Configurations>Debug;Release;Publish</Configurations>
+        <Platforms>AnyCPU</Platforms>
+
         <IsPackable>true</IsPackable>
         <PackageId>EzDomain.Core</PackageId>
         <PackageProjectUrl>https://www.nuget.org/</PackageProjectUrl>
@@ -16,8 +21,10 @@
         <Authors>Maciej Korzeniewski</Authors>
         <Copyright>Maciej Korzeniewski</Copyright>
         <Company>MaKorp</Company>
-        <ImplicitUsings>enable</ImplicitUsings>
-        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <PropertyGroup Condition=" '$(Configuration)' == 'Publish' ">
+      <Optimize>true</Optimize>
     </PropertyGroup>
 
     <ItemGroup>
