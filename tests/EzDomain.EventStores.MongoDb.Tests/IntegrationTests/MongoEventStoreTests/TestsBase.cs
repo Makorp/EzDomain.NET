@@ -8,11 +8,7 @@ internal abstract class TestsBase
 {
     protected static readonly MongoEventStoreSettings MongoEventStoreSettings = new(
         $"testEventStore_{Guid.NewGuid().ToString()}",
-        $"domainEvents_{Guid.NewGuid().ToString()}",
-        new[]
-        {
-            typeof(TestEvent)
-        });
+        $"domainEvents_{Guid.NewGuid().ToString()}");
 
     protected static readonly MongoClient MongoClient = new(GetConnectionString());
 

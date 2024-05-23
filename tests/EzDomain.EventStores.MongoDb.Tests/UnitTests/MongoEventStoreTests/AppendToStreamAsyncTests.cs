@@ -14,11 +14,7 @@ internal sealed class AppendToStreamAsyncTests
 
     private readonly MongoEventStoreSettings _mongoEventStoreSettings = new(
         $"dummyEventStore",
-        $"domainEvents",
-        new[]
-        {
-            typeof(TestEvent)
-        });
+        $"domainEvents");
 
     [OneTimeSetUp]
     public void OneTimeSetUp()
