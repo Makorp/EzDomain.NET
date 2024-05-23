@@ -8,6 +8,8 @@
         <IsPackable>false</IsPackable>
         <IsTestProject>true</IsTestProject>
       <UserSecretsId>5b81dfbd-17cb-446f-b83a-20af49cd7d01</UserSecretsId>
+      <Configurations>Debug;Release;Publish</Configurations>
+      <Platforms>AnyCPU</Platforms>
   </PropertyGroup>
 
     <ItemGroup>

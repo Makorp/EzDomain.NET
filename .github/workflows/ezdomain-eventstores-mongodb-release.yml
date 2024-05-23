@@ -1,4 +1,4 @@
-name: Release EzDomain.Core solution (to NuGet)
+name: Release EzDomain.EventStores.MongoDb solution (to NuGet)
 
 on:
   workflow_dispatch:
@@ -25,7 +25,7 @@ on:
 
 defaults:
   run:
-    working-directory: ./src/EzDomain.Core
+    working-directory: ./src/EzDomain.EventStores.MongoDb
 
 jobs:
   build-and-push:
@@ -44,7 +44,7 @@ jobs:
         MINOR=${{ github.event.inputs.Minor }}
         PATCH=${{ github.event.inputs.Patch }}
 
-        VERSION=$(grep -oP '(?<=<Version>).*?(?=</Version>)' EzDomain.Core.csproj)
+        VERSION=$(grep -oP '(?<=<Version>).*?(?=</Version>)' EzDomain.EventStores.Mongodb.csproj)
         IFS='.' read -ra ADDR <<< "$VERSION"
         if [[ "ADDR[0]" != $MAJOR ]]; then
           ADDR[0]=$MAJOR
@@ -61,11 +61,11 @@ jobs:
         NEW_VERSION="${ADDR[0]}.${ADDR[1]}.${ADDR[2]}"
         echo "Old assembly version:" $VERSION
         echo "New assembly version:" $NEW_VERSION
-        sed -i "s/<Version>[0-9]*\.[0-9]*\.[0-9]*<\/Version>/<Version>$NEW_VERSION<\/Version>/g" EzDomain.Core.csproj
+        sed -i "s/<Version>[0-9]*\.[0-9]*\.[0-9]*<\/Version>/<Version>$NEW_VERSION<\/Version>/g" EzDomain.EventStores.MongoDb.csproj
         git config --global user.name 'GitHub Actions'
         git config --global user.email 'github-actions@github.com'
         git pull
-        git add EzDomain.Core.csproj
+        git add EzDomain.EventStores.MongoDb.csproj
         git commit --allow-empty -m "Assembly version update to: $NEW_VERSION"
         git push
 
@@ -77,8 +77,8 @@ jobs:
 
     - name: Push to NuGet
       run: |
-        dotnet nuget push ./publish/EzDomain.Core.${{ steps.update_version.outputs.new_version }}.nupkg --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
+        dotnet nuget push ./publish/EzDomain.EventStores.MongoDb.${{ steps.update_version.outputs.new_version }}.nupkg --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
 
     - name: Rollback version if push failed
       if: ${{ failure() }}
-      run: git checkout -- EzDomain.Core.csproj
+      run: git checkout -- EzDomain.EventStores.MongoDb.csproj

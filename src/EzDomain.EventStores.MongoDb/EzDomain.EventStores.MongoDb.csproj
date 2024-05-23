@@ -1,17 +1,38 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
+        <LangVersion>12</LangVersion>
+        <TargetFramework>net7.0</TargetFramework>
+        <Version>7.0.0</Version>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
-      <UserSecretsId>0347b9f3-3160-4672-ad9b-0b70d7f3d329</UserSecretsId>
-      <TargetFramework>net7.0</TargetFramework>
-  </PropertyGroup>
+        <Configurations>Debug;Release;Publish</Configurations>
+        <Platforms>AnyCPU</Platforms>
+        <UserSecretsId>0347b9f3-3160-4672-ad9b-0b70d7f3d329</UserSecretsId>
 
-    <ItemGroup Condition="'$(Configuration)'=='Debug'">
-      <ProjectReference Include="..\EzDomain.Core\EzDomain.Core.csproj" />
+        <IsPackable>true</IsPackable>
+        <PackageId>EzDomain.EventStores.MongoDb</PackageId>
+        <PackageProjectUrl>https://www.nuget.org/</PackageProjectUrl>
+        <PackageLicenseUrl>https://github.com/Makorp/EzDomain.NET/blob/main/LICENSE</PackageLicenseUrl>
+        <RepositoryUrl>https://github.com/Makorp/EzDomain.NET</RepositoryUrl>
+        <Title>EzDomain.NET - MongoDB event store.</Title>
+        <Description>
+            This library assists in implementing event sourcing in Domain-Driven Design (DDD) approach.
+        </Description>
+        <Authors>Maciej Korzeniewski</Authors>
+        <Copyright>Maciej Korzeniewski</Copyright>
+        <Company>MaKorp</Company>
+    </PropertyGroup>
+
+    <PropertyGroup Condition="'$(Configuration)'=='Publish'">
+        <Optimize>true</Optimize>
+    </PropertyGroup>
+
+    <ItemGroup Condition="'$(Configuration)'=='Debug' Or '$(Configuration)'=='Release'">
+        <ProjectReference Include="..\EzDomain.Core\EzDomain.Core.csproj" />
     </ItemGroup>
 
-    <ItemGroup Condition="'$(Configuration)'=='Release'">
+    <ItemGroup Condition="'$(Configuration)'=='Publish'">
         <PackageReference Include="EzDomain.Core" Version="*" />
     </ItemGroup>
 
