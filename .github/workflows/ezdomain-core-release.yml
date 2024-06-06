@@ -81,4 +81,5 @@ jobs:
 
     - name: Rollback version if push failed
       if: ${{ failure() }}
-      run: git checkout -- EzDomain.Core.csproj
+      run: git revert HEAD --no-edit
+           git push
