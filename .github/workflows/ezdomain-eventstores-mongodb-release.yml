@@ -46,7 +46,7 @@ jobs:
         MINOR=${{ github.event.inputs.Minor }}
         PATCH=${{ github.event.inputs.Patch }}
 
-        VERSION=$(grep -oP '(?<=<Version>).*?(?=</Version>)' EzDomain.EventStores.Mongodb.csproj)
+        VERSION=$(grep -oP '(?<=<Version>).*?(?=</Version>)' EzDomain.EventStores.MongoDb.csproj)
         IFS='.' read -ra ADDR <<< "$VERSION"
         if [[ "ADDR[0]" != $MAJOR ]]; then
           ADDR[0]=$MAJOR
